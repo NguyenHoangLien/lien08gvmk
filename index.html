@@ -1,0 +1,395 @@
+<!DOCTYPE html> 
+<html lang="en" style="overflow: auto; height: 100%;"> 
+  
+<head> 
+    <meta charset="UTF-8" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+</head> 
+  <style>
+   
+
+ body {
+  
+  --s: 100px; /* control the size */
+  
+  --_g: #0000 90deg,#366 0;
+  background: white;
+   
+  padding: 1;
+  margin: 1;
+}
+
+*:fullscreen
+*:-ms-fullscreen,
+*:-webkit-full-screen,
+*:-moz-full-screen {
+   overflow: auto !important;
+}
+    .title {
+        display: block;
+       
+       
+        padding: 0% 10%;
+      
+        color: #000000;
+     
+        clear: both;
+      }    
+      .title .date {
+        float: right;
+      }      
+      .title .name {
+        float: left;
+      }
+#container:fullscreen {
+	background-color: white;
+  width: 100%;
+	height: 100vh;
+	 margin: 5;
+	 
+}
+
+
+  
+    
+
+
+	
+}
+html {overflow: auto; font-size:4vw;}
+      
+          
+        html, 
+        body, 
+        
+        iframe { 
+           display: block; 
+            margin: 0px; 
+            
+            height: 100vh; 
+           
+        } 
+          
+        iframe { 
+            
+            width: 100%; 
+            border: none; 
+            
+ 
+        } 
+   
+	
+* {
+  box-sizing: border-box;
+}
+
+
+.left {
+    float: left;
+   padding 5% 5%; 
+  width: 60%; /* The width is 20%, by default */
+    
+}
+
+
+.right {
+  
+  float: right;
+  padding 5% 5%;
+  width: 40%; /* The width is 20%, by default */
+   \
+}
+
+
+@media screen and (orientation:portrait) {
+  .right, .left {
+    width: 100%; /* The width is 100%, when the viewport is landscape */
+    
+  }
+}
+</style>
+
+<body>
+
+   
+
+<script>
+  function toggleFullScreen(elem) {
+  if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+    if (elem.requestFullScreen) {
+      elem.requestFullScreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullScreen) {
+      elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  } else {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+}
+</script>
+
+  
+    
+    
+   
+
+
+<script>
+     function reloadPage(){
+       const url = new URL(window.location.href);
+  url.searchParams.set('reloadTime', Date.now().toString());
+  window.location.href = url.toString();
+    }
+</script>
+
+
+
+
+
+   
+  
+    <div id="container" style="justify-content: center;">
+<div class="left">
+ <div class="title" >
+    
+    <span class="name">  <button id="Block" style="color:red;" onclick="toggleFullScreen(document.getElementById('container'))">&#9974;</button></span>
+   <span class="date" id="demo"  ></span>
+   <span class="date" id="clock" ></span>
+   </div>
+   </div>
+<div class="right">
+ <div class="title" >
+
+<span class=date><button type="button"  style="color:blue;"   onclick="reloadPage();">&#9990;0377414995</button>&nbsp;</span>
+ <span class="name"><input id="textm" type="text" style="width:10vw; "   maxlength="4" size="8"    /> </span>
+ </div>
+ </div>
+ 
+     
+    
+
+
+
+
+
+
+
+
+
+<iframe  id="iframeL" src= ""   name="iframe_l" height="85vh"   width="100%"  align="center"   scrolling="auto" allow="" style="display:flex;justify-content: center;"></iframe>
+  </div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+var DELAY = 1000, clicks = 0, timer = null;
+
+$(function(){
+
+    $("#textm").on("click", function(e){
+
+        clicks++;  //count clicks
+
+        if(clicks === 1) {
+
+            timer = setTimeout(function() {
+
+                myFunction();  //perform single-click action    
+                clicks = 0;             //after action performed, reset counter
+
+            }, DELAY);
+
+        } else {
+
+            clearTimeout(timer);    //prevent single-click action
+            Bfunction();  //perform double-click action
+            clicks = 0;             //after action performed, reset counter
+        }
+
+    })
+    .on("dblclick", function(e){
+        e.preventDefault();  //cancel system double-click event
+    });
+
+});
+</script>
+
+
+
+
+
+
+
+
+<script>
+ var texth=window.location.href;
+  var textl=texth.slice(texth.search("=")+1, texth.length);
+  var num=Date.now()-parseFloat(textl);
+  if (num<10000){document.getElementById("textm").style.display = "flex";document.getElementById("demo").style.display = "flex";} else {document.getElementById("textm").style.display = "none";document.getElementById("demo").style.display = "none";};
+setInterval(myTimer, 1000);
+
+function myTimer() {
+     const today = new Date();
+today.setHours(today.getHours()+7); 
+  document.getElementById("clock").innerHTML= "&#128466;" +" &nbsp;"+today.toISOString().substring(0,10)+"   "+today.toISOString().substring(11,19);
+  var bd ="";
+
+var db ="";                                                                                         
+var ngaybd=new Date(bd);
+var ngaydb=new Date(db); 
+  const now = new Date();
+  var kta=now.getTime()-ngaybd.getTime();
+  var ktb=now.getTime()-ngaydb.getTime();
+ var ktc=(Math.abs(kta)+Math.abs(ktb)-Math.abs(kta-ktb));
+  var ktd=(Math.abs(kta-ktb)-Math.abs(Math.abs(kta)-Math.abs(ktb)));
+var kte;
+  var kt;
+if(ktb-kta <0){kt=ktc;}; 
+ if(ktb-kta>0) {kt=ktd;};
+if(db!="" && bd==""){kte=ktb;};
+  if(db=="" && bd!=""){kte=-kta;};
+   if(db==""&& bd==""){kte=0;};
+  if(db!="" && bd!=""){kte=kt;};
+
+ 
+ 
+   if(kte> 0 ) {document.getElementById("demo").style.display = "flex";
+       document.getElementById("demo").innerHTML = bd +"&#128199;" +db ;
+     document.getElementById("clock").style.display = "none";
+document.getElementById("iframeL").style.display = "none";
+ 
+ document.getElementById("textm").style.display = "none"; } 
+  else { document.getElementById("textm ").style.display = "flex";
+     document.getElementById("demo").style.display = "none";
+     document.getElementById("clock").style.display = "flex";
+     };
+                
+
+}
+</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+<script> function myFunction(){var m=document.getElementById("textm").value;
+var text;
+                              
+switch (m) {
+  case "2301":
+    text = "https://script.google.com/macros/s/AKfycbw7eiDFgDdXarxKE9K-z6tlmjr1cQ6mYIvOkHa4Q5NWNtHHM7KlTxpi7-cnn2OMOWhE0w/exec";
+    break;
+  case "2305":
+    text = "https://script.google.com/macros/s/AKfycbw4_CA_NfcziXsffta1cSVlP_orqLiMQStaavbVarCRRNnUnjtqC_T1bqZVGb8q5xPk/exec";
+    break;
+case "2005":
+text="https://script.google.com/macros/s/AKfycbzu1o_dqcXeaVcNSlWUKQzirZxTyM4kIp5mVOFMUx085UsJO14Ah0H_rM3wxoEOWNXt/exec";
+break;
+    case "2011":
+text="https://script.google.com/macros/s/AKfycbxfXFHUIvd8lpMWXNnpUyWLKX-R2hXBfN6F0An-ZVZ6Sw-mSRHqZpDeyG2BKua-0Y-Vfw/exec";
+break;
+   case "2311":
+text="https://script.google.com/macros/s/AKfycbxhImoioQH3c75DNBl59mBhOyqeBlIb7v7ZQ83st3xV0IAs3LN8aisW94MeurDAAhBkoA/exec";
+
+break;
+
+  default:
+    text="https://script.google.com/macros/s/AKfycbwpc6SEtHXr5wNwDOIdLB_6YLWl9m294YJfQk9Itgq0V1t8SE6RiAz69H0-S7zjMkmL/exec";
+    break;
+}
+                               
+
+  window.open(text,"iframe_l");
+  document.getElementById("iframeL").style.display = "flex";
+            document.getElementById("textm").value = "";             
+                      }
+  </script>
+  
+ 
+
+  
+
+                                                  <!--CHANGE-->
+
+
+  
+   <script>
+    
+function Bfunction()    {
+ var m=document.getElementById("textm").value;
+var text;
+                              
+switch (m) {
+  case "2301":
+    text = "https://www.geogebra.org/material/iframe/id/zjuataju/smb/false/sdz/false";
+break;
+  case "2305":
+    text = "";
+    break;
+case "2005":
+text="./Lien08.html";
+break;
+    case "2011":
+text="";
+break;
+   case "2311":
+text="";
+break;
+
+};
+                               
+
+if(text!=""){ window.open(text,"iframe_l");
+  document.getElementById("iframeL").style.display = "flex";
+ 
+ document.getElementById("textm").style.display = "none"; 
+             }  ;
+  var time_in_minutes = 2;
+var current_time = Date.parse(new Date());
+var deadline = new Date(current_time + time_in_minutes*60*1000);
+
+
+function time_remaining(endtime){
+	var t = Date.parse(endtime) - Date.parse(new Date());
+	var seconds = Math.floor( (t/1000) % 60 );
+	var minutes = Math.floor( (t/1000/60) % 60 );
+	var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	var days = Math.floor( t/(1000*60*60*24) );
+	return {'total':t, 'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds};
+}
+
+var timeinterval;
+function run_clock(id,endtime){
+	var clock = document.getElementById(id);
+	function update_clock(){
+		var t = time_remaining(endtime);
+      var a=Math.floor( t.minutes % 10 );
+          b=Math.floor( t.minutes /10 ); 
+          c=Math.floor( t.seconds %10 ); 
+         d=Math.floor( t.seconds /10 ); 
+      
+		clock.innerHTML ='\u2740 '+b+a+'\u23F3'+d+c;
+		if(t.total<=0){ clearInterval(timeinterval); 
+                      document.getElementById("demo").style.display = "none";
+                      document.getElementById("iframeL").style.display = "none";}
+	}
+	update_clock(); // run function once at first to avoid delay
+	timeinterval = setInterval(update_clock,1000);
+}
+  
+if(text!=""){run_clock('demo',deadline);document.getElementById("clock").style.display = "none";} else{document.getElementById("textm").value = "";};}
+ 
+  </script>
+
+  </body>
+</html>
