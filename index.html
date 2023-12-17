@@ -10,7 +10,8 @@
    
 
 
-    .title {
+    .title { padding:2% 0%;
+
         display: block;
             
         color: #000000;
@@ -60,33 +61,13 @@ html {overflow: auto; font-size:4vw;}
         } 
    
 	
-* {
-  box-sizing: border-box;
-}
 
 
-.left {
-    float: left;
-   padding: 2% 2% 0% 4%; 
-  width: 60%; 
-    
-}
 
 
-.right {
-  
-  float: right;
-  padding: 2% 4% 0% 2%;
-  width: 40%; 
-}
 
 
-@media screen and (orientation:portrait) {
-  .right, .left { 
-    width: 100%; 
-    
-  }
-}
+
 </style>
 
 <body>
@@ -134,22 +115,16 @@ html {overflow: auto; font-size:4vw;}
    
   
     <div id="container" style="justify-content: center;">
-<div class="left">
+
  <div class="title" >
     
     <span class="name">  <button id="Block" style="color:red;" onclick="toggleFullScreen(document.getElementById('container'))">&#9974;</button></span>
-   <span class="date" id="demo"  ></span>
+   <span class="name"><input id="textm" type="text" style="width:10vw; "   maxlength="4" size="8" placeholder="&#9990;0377414995 "   /> </span>
+<span class="date" id="demo"  ></span>
    <span class="date" id="clock" ></span>
    </div>
-   </div>
-<div class="right">
- <div class="title" >
+  
 
-<span class="date"  style="color:blue;" >&#9990;0377414995 &nbsp;</span>
- <span class="name"><input id="textm" type="text" style="width:10vw; "   maxlength="4" size="8"    /> </span>
- </div>
- </div>
- 
      
     
 
