@@ -146,13 +146,7 @@ html {overflow: auto; font-size:4vw;}
    
 
 
-<script>
-     function reloadPage(){
-       const url = new URL(window.location.href);
-  url.searchParams.set('reloadTime', Date.now().toString());
-  window.location.href = url.toString();
-    }
-</script>
+
 
 
 
@@ -172,7 +166,7 @@ html {overflow: auto; font-size:4vw;}
 <div class="right">
  <div class="title" >
 
-<span class=date><button type="button"  style="color:blue;"   onclick="reloadPage();">&#9990;0377414995</button>&nbsp;</span>
+<span class=date  style="color:blue;" >&#9990;0377414995 &nbsp;</span>
  <span class="name"><input id="textm" type="text" style="width:10vw; "   maxlength="4" size="8"    /> </span>
  </div>
  </div>
@@ -234,10 +228,7 @@ $(function(){
 
 
 <script>
- var texth=window.location.href;
-  var textl=texth.slice(texth.search("=")+1, texth.length);
-  var num=Date.now()-parseFloat(textl);
-  if (num<10000){document.getElementById("textm").style.display = "flex";document.getElementById("demo").style.display = "flex";} else {document.getElementById("textm").style.display = "none";document.getElementById("demo").style.display = "none";};
+ 
 setInterval(myTimer, 1000);
 
 function myTimer() {
