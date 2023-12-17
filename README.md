@@ -1,1 +1,1 @@
-Chào
+chào các bạn !!
