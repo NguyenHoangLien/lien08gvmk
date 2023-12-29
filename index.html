@@ -1,40 +1,46 @@
-<!DOCTYPE html> 
-<html lang="en" style="overflow: auto; height: 100%;"> 
-  
+<!DOCTYPE html>
+<html>
+
 <head> 
-    <meta charset="UTF-8" /> 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-</head> 
-  <style>
-   input[type=text], select {
-  width: 100%;
-  padding: 8px 8px;
-  margin: 2px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-    
-input[type=button] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 8px 8px;
-  margin: 2px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="navigation.js"></script>
+		<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+ 
+        <script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+<style>	
+
+
+		
+       
+
+		
+div.relative {
+  position: absolute;
+  left: 0px;
+  top:0px;
+  border: 3px solid #73AD21;
+}		
+		
+		
+   
+ body {
+  
+overflow:hidden
+   
+  padding: 0;
+  margin: 0;
 }
 
-    .title { padding:2% 5%;
-      
-
+ 
+    .title {
         display: block;
-            
+       
+       
+        padding: 1% ;
+      
         color: #000000;
-             clear: both;
+     
+        clear: both;
       }    
       .title .date {
         float: right;
@@ -42,13 +48,6 @@ input[type=button] {
       .title .name {
         float: left;
       }
-#container:fullscreen {
-	background-color: white;
-  width: 100%;
-	height: 100vh;
-	 margin: 5;
-	 
-}
 
 
   
@@ -57,45 +56,331 @@ input[type=button] {
 
 	
 }
-html {overflow: auto; }
-      
+      html { 
+            overflow: auto; 
+        } 
           
         html, 
         body, 
-        
+       
         iframe { 
            display: block; 
             margin: 0px; 
-            
+            padding: 0px; 
+            height: 100vh; 
            
-           width: 100%; 
         } 
           
         iframe { 
-             height: 85vh; 
-            
+            display: block; 
+            width: 100%; 
             border: none; 
             overflow-y: auto; 
-            overflow-x: hidden; 
-  
+            overflow-x: hidden;
  
         } 
    
+		
+
+
+    </style>
+		
+  </head>	
+
+
+<body>
+  <meta charset="utf-8"> 
+	<link href= 
+"https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+		rel="stylesheet"> 
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script> 
+
+	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"> 
+	</script> 
+
 	
 
 
 
-
-
-
-
-</style>
-
-<body>
-
+	
+	
+ 
    
 
+	
+		
+	 
+<div class="title" height="2vh"   width="100%" >
+.
+   <span class="name"><input id="textm" type="text" style="font-size:3vw;width: 24vw; "   maxlength="4" size="2"  placeholder="&#9990;0377414995 "   /> </span>
+   
+  
+  
+      
+      
+     <span class="date" id="clock" style="font-size: 3.5vw;"></span>
+    
+</div>
+  
+    
+  
+
+ 
 
 
-  </body>
+
+<iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   scrolling="auto" allow="" style="display:none;justify-content: center;"> </iframe>
+       <div id="applet_container" width="100%" height="100vh" style="display:flex;display:flex;" ></div>
+  
+
+
+	
+<script>
+var DELAY = 1000, clicks = 0, timer = null;
+
+$(function(){
+
+    $("#textm").on("click", function(e){
+
+        clicks++;  //count clicks
+
+        if(clicks === 1) {
+
+            timer = setTimeout(function() {
+
+                myFunction();  //perform single-click action    
+                clicks = 0;             //after action performed, reset counter
+
+            }, DELAY);
+
+        } else {
+
+            clearTimeout(timer);    //prevent single-click action
+            Bfunction();  //perform double-click action
+            clicks = 0;             //after action performed, reset counter
+        }
+
+    })
+    .on("dblclick", function(e){
+        e.preventDefault();  //cancel system double-click event
+    });
+
+});
+</script>
+
+
+
+
+
+
+
+
+<script>
+ setInterval(myTimer, 1000);
+
+function myTimer() {
+     const today = new Date();
+today.setHours(today.getHours()+7); 
+  document.getElementById("clock").innerHTML= "&#128466;" +" &nbsp;"+today.toISOString().substring(0,10)+"   "+today.toISOString().substring(11,19);
+  var bd ="";
+
+var db ="";                                                                                         
+var ngaybd=new Date(bd);
+var ngaydb=new Date(db); 
+  const now = new Date();
+  var kta=now.getTime()-ngaybd.getTime();
+  var ktb=now.getTime()-ngaydb.getTime();
+ var ktc=(Math.abs(kta)+Math.abs(ktb)-Math.abs(kta-ktb));
+  var ktd=(Math.abs(kta-ktb)-Math.abs(Math.abs(kta)-Math.abs(ktb)));
+var kte;
+  var kt;
+if(ktb-kta <0){kt=ktc;}; 
+ if(ktb-kta>0) {kt=ktd;};
+if(db!="" && bd==""){kte=ktb;};
+  if(db=="" && bd!=""){kte=-kta;};
+   if(db==""&& bd==""){kte=0;};
+  if(db!="" && bd!=""){kte=kt;};
+
+ 
+ 
+   if(kte> 0 ) {
+       document.getElementById("clock").innerHTML = bd +"&#128199;" +db ;
+     
+document.getElementById("iframeL").style.display = "none";
+ 
+ document.getElementById("textm").style.display = "none"; } 
+  
+                
+
+}
+</script>
+   <script>
+
+   
+	
+ function myFunction(){var m=document.getElementById("textm").value;
+var text0;
+                              
+switch (m) {
+  case "2301":
+    text0 = "https://script.google.com/macros/s/AKfycbwcdTesEmXN9vWDohqNOBr7de7yrN3xOgViKutQy3HA97HcfxRx1ZNZGysq7IVDvOrr-g/exec";
+    break;
+  case "2305":
+    text0 = "https://script.google.com/macros/s/AKfycbwRuHV9Q6kDRZdAIvS6tQ-07bduWf-bFyNIuLGIqdKIwYwLR4EleeiwKpPuUjT-KBQi/exec";
+    break;
+case "2005":
+text="https://script.google.com/macros/s/AKfycbwTX3ui9ttjPJNKgAIgXgxQzz4bBiKTeRC_Qf1ylA4aiSoVxMYd_tOI42Ws6xXRaDIQ/exec";
+break;
+    case "2011":
+text0="https://script.google.com/macros/s/AKfycbwh1tcxf4mwy8VqbqOsyGJYl6fOlhFrqrwHcutO3WP39DX-N8ssMLDIdN-0YU0gxBSi9w/exec";
+break;
+   case "2311":
+text0="https://script.google.com/macros/s/AKfycbymKYpQQMdFTqczpD0KNeimwT8MA5XFVUlFRkQfcuLonUHoaVT53wvozVQOHGQUwkxyoQ/exec";
+
+break;
+
+  default:
+    text="https://script.google.com/macros/s/AKfycbzqE2oTbKC_m0Lr6MhSKgqvzypiHGqHG3BnJcmHM8MfEp9uicnglCHwcWCSb2DhoBhW/exec";
+    break;
+}                            
+
+  window.open(text0,"iframe_l");
+  document.getElementById("iframeL").style.display = "flex";
+            document.getElementById("textm").value = "";             
+                      }
+  </script>
+  
+ 
+
+  
+
+                                                  <!--CHANGE-->
+
+
+  
+   <script>
+    
+function Bfunction()    {
+ var m=document.getElementById("textm").value;
+var text;
+                              
+switch (m) {
+  case "2301":
+    text = "https://wiki.geogebra.org/en/Reference:GeoGebra_Apps_API";
+break;
+  case "2305":
+    text = "j6jzvb2n";
+    break;
+case "2005":
+text="";
+break;
+    case "2011":
+text="";
+break;
+   case "2311":
+text="";
+break;
+
+};
+                               
+
+if(text!=""){ window.open(text,"iframe_l");
+  document.getElementById("iframeL").style.display = "flex";
+ 
+ document.getElementById("textm").style.display = "none"; 
+             } ;
+
+  var time_in_minutes = 2;
+var current_time = Date.parse(new Date());
+var deadline = new Date(current_time + time_in_minutes*60*1000);
+
+
+function time_remaining(endtime){
+	var t = Date.parse(endtime) - Date.parse(new Date());
+	var seconds = Math.floor( (t/1000) % 60 );
+	var minutes = Math.floor( (t/1000/60) % 60 );
+	var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	var days = Math.floor( t/(1000*60*60*24) );
+	return {'total':t, 'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds};
+}
+
+var timeinterval;
+function run_clock(id,endtime){
+	var clock = document.getElementById(id);
+	function update_clock(){
+		var t = time_remaining(endtime);
+      var a=Math.floor( t.minutes % 10 );
+          b=Math.floor( t.minutes /10 ); 
+          c=Math.floor( t.seconds %10 ); 
+         d=Math.floor( t.seconds /10 ); 
+      
+		clock.innerHTML ='\u2740 '+b+a+'\u23F3'+d+c;
+		if(t.total<=0){ clearInterval(timeinterval); 
+                      document.getElementById("demo").style.display = "none";
+                      document.getElementById("iframeL").style.display = "none";}
+	}
+	update_clock(); // run function once at first to avoid delay
+	timeinterval = setInterval(update_clock,1000);
+}
+  
+if(text!=""){run_clock('demo',deadline);document.getElementById("clock").style.display = "none";} else{document.getElementById("textm").value = "";};
+ 
+var parameters = {
+                        "appname":"classic",
+"width":window.innerWidth,
+"height":window.innerHeight,
+
+                        "id":"ggbApplet",
+                        "showFullscreenButton":false,
+                        "material_id":text,
+                        "showToolBar":true,
+                        "borderColor":null,
+                        "showMenuBar":false,
+                        "allowStyleBar":true,
+                        "showAlgebraInput":true,
+                        "enableLabelDrags":false,
+                        "enableShiftDragZoom":false,
+                        "capturingThreshold":null,
+                        "showToolBarHelp":false,
+                        "errorDialogsActive":true,
+                        "showTutorialLink":true,
+                        "showLogging":true,
+                        "useBrowserForJS":true,
+						"disableAutoScale":true,
+                        };
+                var applet = new GGBApplet(parameters, '5.0', 'applet_container');
+                
+window.onload = function() { applet.inject('applet_container'); }
+
+				
+       
+
+
+		
+		 $( window ).on( "resize", function() {
+ 
+				
+				ggbApplet.setSize(window.innerWidth,window.innerHeight);
+			
+} );
+$( window ).on( "orientionchange", function() {
+ 
+				
+				ggbApplet.setSize(window.innerWidth,window.innerHeight);});}
+  </script>
+  
+
+
+	<div id="demo" class="relative" title="Bài tập" style="font-size: 3.5vw;"> 
+		
+	</div> 
+<div>
+       
+
+        		
+		
+	
+
+</body>
+
 </html>
