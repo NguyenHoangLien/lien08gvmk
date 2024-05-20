@@ -1,5 +1,427 @@
 <!DOCTYPE html>
 <html>
 
+<head> 
+      
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv='cache-control' content='no-cache'> 
+<meta http-equiv='expires' content='0'> 
+<meta http-equiv='pragma' content='no-cache'>	
+		<script src = "filename.js?v={Date.now()}">window.location.reload(true);window.location.href = window.location.href.split('#')[0];
+</script> 
+
+
+		<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+	
+		
+		<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+		 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script src="https://www.geogebra.org/apps/deployggb.js"></script>
+
+
+
+
+
+
+		
+<style>	
+
+div.relative {
+  position: absolute;
+  right:8%;
+  top:0%;
+  
+}	
+ 
+		
+   
+ body {
+  
+overflow:hidden
+   
+  padding: 0;
+  margin: 0;
+}
+
+ 
+    .title {
+        display: block;
+       
+       
+        
+      
+        color: #000000;
+     
+        clear: both;
+      }    
+      .title .date {
+        float: right;
+       
+      }      
+      .title .name {
+        float: left;
+        
+      }
+
+
+  
+    
+
+
+	
+}
+      html { 
+            overflow: auto; padding: 2%;
+  margin: 0.5%;
+        } 
+          
+        html, 
+        body, 
+       
+        iframe { 
+           display: block; 
+            margin: 0px; 
+            
+            height: 100vh; 
+           
+        } 
+          
+        iframe { 
+            display: block; 
+            width: 100%; 
+            border: none; 
+            overflow-y: auto; 
+            overflow-x: hidden;
+ 
+        } 
+   
+		
+
+
+    </style>
+		
+  </head>	
+<body >
+    <p>
+ 
+   <div class="title" height="2vh"   width="100%" >
+ <span><button id="mytn" onclick="reloadPage();" style="position: absolute;font-size:2vw; right:2%;">&#128260;</button></span>
+     
+     <span class="date"><input id="textm" type="text" style="position: absolute;font-size:2vw;width:15vw;right:8% "   maxlength="4" size="2"  placeholder="&#9990; 0377414995 "/> </span> 
+        <span><button id="btn"style="position: absolute;font-size:2vw;right:2%;display:none;">[]</button></span> 
+  
+      
+      <span class="name" id="clock" style="position: absolute;font-size:3vw;left:5%;"></span>
+     
+     </div>
+  
+    
+  
+
+
+   	<div id="demo" class="relative" title="Bài tập" style="font-size: 2vw;"> 
+		
+	</div>   
+  
+  <iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   allow="" style="display:none;justify-content: center;padding:1.5%;"> </iframe>
+
+    <!-- Script -->
+    <script >
+
+let myDocument = document.documentElement;
+
+
+btn.addEventListener("click", ()=>{
+    if(btn.textContent == "[]"){
+        if(myDocument.requestFullscreen){
+            myDocument.requestFullscreen();
+        }
+        else if(myDocument.msRequestFullscreen){
+            myDocument.msRequestFullscreen();
+        }
+        else if(myDocument.mozRequestFullscreen){
+            myDocument.mozRequestFullscreen();
+        }
+        else if(myDocument.webkitRequestFullscreen){
+            myDocument.webkitRequestFullscreen();
+        }
+
+        btn.textContent = "][";
+    }
+    else{
+        if(document.exitFullscreen){
+            document.exitFullscreen();
+        }
+        else if(document.msexitFullscreen){
+            document.msexitFullscreen();
+        }
+        else if(document.mozexitFullscreen){
+            document.mozexitFullscreen();
+        }
+        else if(document.webkitexitFullscreen){
+            document.webkitexitFullscreen();
+        }
+
+        btn.textContent = "[]";
+    }
+});
+  </script>
+
+	 
+
+	<script>
+  function toggleFullScreen(elem) {
+  if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+    if (elem.requestFullScreen) {
+      elem.requestFullScreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullScreen) {
+      elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  } else {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+}
+</script>
+<script>
+function toggle(e) {
+  let txt = e.innerText;
+  e.innerText = txt == "][" ? "[]" : "][";
+}
+</script>
+
+
+	<script>
+     function reloadPage(){
+       const url = new URL(window.location.href);
+  url.searchParams.set('reloadTime', Date.now().toString());
+  window.location.href = url.toString();
+    }
+</script>
+
+
+    
+
+
+	
+<script>
+var DELAY = 1000, clicks = 0, timer = null;
+
+$(function(){
+
+    $("#textm").on("click", function(e){
+
+        clicks++;  //count clicks
+
+        if(clicks === 1) {
+
+            timer = setTimeout(function() {
+
+                myFunction();  //perform single-click action    
+                clicks = 0;             //after action performed, reset counter
+
+            }, DELAY);
+
+        } else {
+
+            clearTimeout(timer);    //prevent single-click action
+            Bfunction();  //perform double-click action
+            clicks = 0;             //after action performed, reset counter
+        }
+
+    })
+    .on("dblclick", function(e){
+        e.preventDefault();  //cancel system double-click event
+    });
+
+});
+</script>
+
+
+
+
+
+
+
+
+<script>
+ var texth=window.location.href;
+  var textl=texth.slice(texth.search("=")+1, texth.length);
+  var num=Date.now()-parseFloat(textl);
+  if (num<60000){document.getElementById("textm").style.display = "flex";document.getElementById("mytn").style.display = "none";document.getElementById("clock").style.display = "flex";document.getElementById("btn").style.display = "flex";} else {document.getElementById("textm").style.display = "none";document.getElementById("clock").style.display = "none";document.getElementById("btn").style.display = "none";};
+setInterval(myTimer, 1000);
+
+function myTimer() {
+     const today = new Date();
+today.setHours(today.getHours()+7); 
+  document.getElementById("clock").innerHTML= today.toISOString().substring(0,10)+"&nbsp;"+"&#9788;"+"&nbsp;"+today.toISOString().substring(11,19);
+  var bd ="";
+
+var db ="";                                                                                         
+var ngaybd=new Date(bd);
+var ngaydb=new Date(db); 
+  const now = new Date();
+  var kta=now.getTime()-ngaybd.getTime();
+  var ktb=now.getTime()-ngaydb.getTime();
+ var ktc=(Math.abs(kta)+Math.abs(ktb)-Math.abs(kta-ktb));
+  var ktd=(Math.abs(kta-ktb)-Math.abs(Math.abs(kta)-Math.abs(ktb)));
+var kte;
+  var kt;
+if(ktb-kta <0){kt=ktc;}; 
+ if(ktb-kta>0) {kt=ktd;};
+if(db!="" && bd==""){kte=ktb;};
+  if(db=="" && bd!=""){kte=-kta;};
+   if(db==""&& bd==""){kte=0;};
+  if(db!="" && bd!=""){kte=kt;};
+
+ 
+ 
+   if(kte> 0 ) {document.getElementById("clock").style.display = "flex";
+       document.getElementById("clock").innerHTML = "&nbsp;"+"&nbsp;"+"&nbsp;"+ bd +"&#128466;" +db ;
+     
+document.getElementById("iframeL").style.display = "none";
+ 
+ document.getElementById("textm").style.display = "none"; } 
+  
+                
+
+}
+</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+<script>
+function myFunction(){
+    var m=document.getElementById("textm").value;
+var text;
+                              
+switch (m) {
+  case "2301":
+    text = "https://script.google.com/macros/s/AKfycbxx2uDw8TGImJkc89NT1QPwpdvF0rVHSSl_nvbs53YofL_pVJCWdPE-pMUBu7hJ3dPn/exec";
+    break;
+  case "2305":
+    text = "https://script.google.com/macros/s/AKfycbxiTRVQDqDEB0dfecv0m65ReI04gF3eKhMGFKl9TV_WkIvQUdoQzyO9cLRw8c4fari3/exec";
+    break;
+case "2311":
+text="https://script.google.com/macros/s/AKfycbza11iiSMagX4_mLPiJgb1SsCUtmkgA5W00siRTKfU5R65qH3ASNGuw0gPZcLab9DOD_w/exec";
+break;
+    case "2005":
+text="https://script.google.com/macros/s/AKfycbzxAk8Kh8CfxnUjvg3CShdsc2MwKMfc5adKcYsrZJ0eH1p9KaZ2nXHEt5_qXRuVTVqr3g/exec";
+break;
+   case "2011":
+text="https://script.google.com/macros/s/AKfycbxjMcJIYMj2-h-SHV2NhjNvEEXh0KUoTBj7WMt8qkaPc6JjykR9JO8gXGAbEkjQ7kMpRQ/exec";
+
+break;
+
+  default:
+    text="https://script.google.com/macros/s/AKfycbxnS0URP8zDuPxF07Knk0BuHphD2Zg_RTpR4MrrrlyhowsNfFBi94bw8GbdZIDKE30/exec";
+    break;
+}
+                        
+
+  window.open(text,"iframe_l");
+  document.getElementById("iframeL").style.display = "flex";
+            document.getElementById("textm").value = "";             
+                      }
+  </script>
+                                                   
+   <script>
+    
+function Bfunction()    {
+ var m=document.getElementById("textm").value;
+var text;
+                              
+switch (m) {
+  case "2301":
+    text = "indexG.html";
+break;
+  case "2305":
+    text = "indexG.html";
+    break;
+case "2311":
+text="indexG.html";
+break;
+    case "2005":
+text="indexG.html";
+break;
+   case "2011":
+text="indexG.html";
+break;
+default:
+    text="";
+    break;
+};
+                               
+
+if(text!=""){ window.open(text,"iframe_l");
+  document.getElementById("iframeL").style.display = "flex";
+ 
+ document.getElementById("textm").style.display = "none"; 
+             }  ; 
+  var time_in_minutes =null;
+var current_time = Date.parse(new Date());
+var deadline = new Date(current_time + time_in_minutes*60*1000);
+
+
+function time_remaining(endtime){
+	var t = Date.parse(endtime) - Date.parse(new Date());
+	var seconds = Math.floor( (t/1000) % 60 );
+	var minutes = Math.floor( (t/1000/60) % 60 );
+	var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	var days = Math.floor( t/(1000*60*60*24) );
+	return {'total':t, 'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds};
+}
+
+var timeinterval;
+function run_clock(id,endtime){
+	var clock = document.getElementById(id);
+	function update_clock(){
+		var t = time_remaining(endtime);
+      var a=Math.floor( t.minutes % 10 );
+          b=Math.floor( t.minutes /10 ); 
+          c=Math.floor( t.seconds %10 ); 
+         d=Math.floor( t.seconds /10 ); 
+      
+		clock.innerHTML ="&nbsp;"+b+a+'\u23F3'+d+c;
+		if(t.total<=0){ clearInterval(timeinterval); 
+                      document.getElementById("demo").style.display = "none";
+                      document.getElementById("iframeL").style.display = "none";}
+	}
+	update_clock(); // run function once at first to avoid delay
+	timeinterval = setInterval(update_clock,1000);
+}
+  document.getElementById("clock").style.display = "none";
+if(text!=""&&time_in_minutes!=null){run_clock('demo',deadline);} else{document.getElementById("textm").value = ""; document.getElementById("iframeL").style.display = "flex"; };}
+ 
+  </script>
+  
+
+
+ 
+		
+	
+	
+
+</body>
 
 </html>
