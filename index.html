@@ -7,10 +7,16 @@
 		<meta http-equiv='cache-control' content='no-cache'> 
 <meta http-equiv='expires' content='0'> 
 <meta http-equiv='pragma' content='no-cache'>	
-		<script src = "filename.js?v={Date.now()}">window.location.reload(true);window.location.href = window.location.href.split('#')[0];
-</script> 
+		 
 
-
+<script>
+// retrieve all cookies
+var Cookies = document.cookie.split(';');
+ // set past expiry to all cookies
+for (var i = 0; i < Cookies.length; i++) {
+   document.cookie = Cookies[i] + "=; expires="+ new Date(0).toUTCString();
+}
+</script>
 		<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
 	
 		
@@ -34,11 +40,36 @@
 
 		
 <style>	
+/* Hide scrollbar for Chrome, Safari and Opera */
+
+body::-webkit-scrollbar {
+
+  display: none;
+
+}
+
+
+
+/* Hide scrollbar for IE, Edge and Firefox */
+
+body {
+
+  -ms-overflow-style: none;  /* IE and Edge */
+
+  scrollbar-width: none;  /* Firefox */
+
+}
+
+
+
+
+
 
 div.relative {
   position: absolute;
-  right:8%;
-  top:0%;
+  right:0%;
+  bottom:0%;
+  z-index:1;
   
 }	
  
@@ -88,6 +119,8 @@ overflow:hidden
         body, 
        
         iframe { 
+background: white;
+
            display: block; 
             margin: 0px; 
             
@@ -110,17 +143,16 @@ overflow:hidden
     </style>
 		
   </head>	
-<body >
+<body  >
     <p>
  
    <div class="title" height="2vh"   width="100%" >
  <span><button id="mytn" onclick="reloadPage();" style="position: absolute;font-size:2vw; right:2%;">&#128260;</button></span>
-     
-     <span class="date"><input id="textm" type="text" style="position: absolute;font-size:2vw;width:15vw;right:8% "   maxlength="4" size="2"  placeholder="&#9990; 0377414995 "/> </span> 
-        <span><button id="btn"style="position: absolute;font-size:2vw;right:2%;display:none;">[]</button></span> 
+     <span class="date"><input id="textm" type="text" style="position: absolute;font-size:2.5vw;width:20vw;right:10% ; text-align: center;"   maxlength="4" size="2"  placeholder="&#9990;&nbsp; 0377414995 "/> </span> 
+        <span><button id="btn"style="position: absolute;font-size:3vw;z-index:1;left:0%;top:0%; display:none;">[]</button></span> 
   
-      
-      <span class="name" id="clock" style="position: absolute;font-size:3vw;left:5%;"></span>
+     
+      <span class="name" id="clock" style="position: absolute;font-size:3vw;left:15%;"></span>
      
      </div>
   
@@ -128,11 +160,13 @@ overflow:hidden
   
 
 
-   	<div id="demo" class="relative" title="Bài tập" style="font-size: 2vw;"> 
+   	<div id="demo" class="relative" title="Bài tập" style="font-size: 3vw;"> 
 		
 	</div>   
-  
-  <iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   allow="" style="display:none;justify-content: center;padding:1.5%;"> </iframe>
+<br>
+
+  <br>
+  <iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   allow="" style="display:none;justify-content: center;"> </iframe>
 
     <!-- Script -->
     <script >
@@ -177,6 +211,7 @@ btn.addEventListener("click", ()=>{
   </script>
 
 	 
+	
 
 	<script>
   function toggleFullScreen(elem) {
@@ -210,15 +245,14 @@ function toggle(e) {
 }
 </script>
 
-
-	<script>
+<script>
      function reloadPage(){
        const url = new URL(window.location.href);
   url.searchParams.set('reloadTime', Date.now().toString());
   window.location.href = url.toString();
     }
 </script>
-
+	
 
     
 
@@ -262,22 +296,27 @@ $(function(){
 
 
 
-
-
 <script>
  var texth=window.location.href;
   var textl=texth.slice(texth.search("=")+1, texth.length);
   var num=Date.now()-parseFloat(textl);
-  if (num<60000){document.getElementById("textm").style.display = "flex";document.getElementById("mytn").style.display = "none";document.getElementById("clock").style.display = "flex";document.getElementById("btn").style.display = "flex";} else {document.getElementById("textm").style.display = "none";document.getElementById("clock").style.display = "none";document.getElementById("btn").style.display = "none";};
+  if (num<60000){document.getElementById("textm").style.display = "flex";document.getElementById("mytn").style.display = "none";document.getElementById("clock").style.display = "flex";document.getElementById("btn").style.display = "none";} else {document.getElementById("textm").style.display = "none";document.getElementById("clock").style.display = "none";document.getElementById("btn").style.display = "none";};
 setInterval(myTimer, 1000);
+
+
+
 
 function myTimer() {
      const today = new Date();
 today.setHours(today.getHours()+7); 
   document.getElementById("clock").innerHTML= today.toISOString().substring(0,10)+"&nbsp;"+"&#9788;"+"&nbsp;"+today.toISOString().substring(11,19);
+
+
   var bd ="";
 
 var db ="";                                                                                         
+
+
 var ngaybd=new Date(bd);
 var ngaydb=new Date(db); 
   const now = new Date();
@@ -353,19 +392,19 @@ var text;
                               
 switch (m) {
   case "2301":
-    text = "indexG.html";
+    text = "./web/lien/Geo01.html";
 break;
   case "2305":
-    text = "indexG.html";
+    text = "./web/lien/Geo01.html";
     break;
 case "2311":
-text="indexG.html";
+text="./web/lien/Geo01.html";
 break;
     case "2005":
-text="indexG.html";
+text="./web/lien/Geo10.html";
 break;
    case "2011":
-text="indexG.html";
+text="./web/lien/Geo10.html";
 break;
 default:
     text="";
@@ -378,7 +417,12 @@ if(text!=""){ window.open(text,"iframe_l");
  
  document.getElementById("textm").style.display = "none"; 
              }  ; 
-  var time_in_minutes =null;
+
+
+  var time_in_minutes =2;
+
+
+
 var current_time = Date.parse(new Date());
 var deadline = new Date(current_time + time_in_minutes*60*1000);
 
