@@ -4,37 +4,28 @@
 <head> 
       
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv='cache-control' content='no-cache'> 
-<meta http-equiv='expires' content='0'> 
-<meta http-equiv='pragma' content='no-cache'>	
-		 
+	
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="timestamp" />
+<meta http-equiv="pragma" content="no-cache" />
+  
+	
 
-<script>
-// retrieve all cookies
-var Cookies = document.cookie.split(';');
- // set past expiry to all cookies
-for (var i = 0; i < Cookies.length; i++) {
-   document.cookie = Cookies[i] + "=; expires="+ new Date(0).toUTCString();
-}
-</script>
 		<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
 	
 		
-		<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+		
 		<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
 		 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
 
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -46,13 +37,13 @@ body::-webkit-scrollbar {
 
   display: none;
 
-}
+
 
 
 
 /* Hide scrollbar for IE, Edge and Firefox */
 
-body {
+
 
   -ms-overflow-style: none;  /* IE and Edge */
 
@@ -62,18 +53,27 @@ body {
 
 
 
-
+input[type="text"]{position:relative;display:block;margin:0 auto}
 
 
 div.relative {
+   padding: 0;
+color:blue;
+text-decoration: underline overline dotted red;
   position: absolute;
-  right:0%;
-  bottom:0%;
+  right:10%;
+  bottom:5%;
   z-index:1;
-  
+  font-size:200%;
 }	
  
-		
+	.myTextBox {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  outline:none;
+ }	
    
  body {
   
@@ -82,36 +82,58 @@ overflow:hidden
   padding: 0;
   margin: 0;
 }
-
  
-    .title {
-        display: block;
-       
-       
-        
-      
-        color: #000000;
-     
-        clear: both;
-      }    
-      .title .date {
-        float: right;
-       
-      }      
-      .title .name {
-        float: left;
-        
-      }
+@media (max-aspect-ratio: 1){
 
-
+.container-info {             
   
-    
+   width: 100%;
+  height: 4vh;
+ 
+ display: flex;   /* Make Flex Container */
+    justify-content: center;  /* Center horizontally */
+    align-items: center; 
+ }
+.container-main {           
+  display: flex;   /* Make Flex Container */
+    justify-content: center;  /* Center horizontally */
+    align-items: center; 
+ 
 
-
-	
+   width: 100%;
+  height: 4vh;
+ overflow:hidden;
 }
+}
+  @media (min-aspect-ratio: 1) {
+    .container-info {
+
+      float: left;
+ justify-content: center;
+      /*position: fixed;*/
+      right: 0;
+      top: 0;
+      height: 12vh;
+      width: 50%;
+overflow:hidden;
+
+}
+.container-main {
+
+ justify-content: center;
+      float: right;
+      /*position: fixed;*/
+      left: 0;
+      top: 0;
+      height: 12vh;
+      width: 50%;
+ overflow:hidden;
+
+ } 
+}
+ 
       html { 
-            overflow: auto; padding: 2%;
+            overflow: auto; padding: 0%;
   margin: 0.5%;
         } 
           
@@ -144,115 +166,71 @@ background: white;
 		
   </head>	
 <body  >
+    <button id="fullscreenButton" style="position:fixed; top:0%;left:0%;z-index:5;font-size:1rem;">&#128260;</button>
     <p>
- 
-   <div class="title" height="2vh"   width="100%" >
- <span><button id="mytn" onclick="reloadPage();" style="position: absolute;font-size:2vw; right:2%;">&#128260;</button></span>
-     <span class="date"><input id="textm" type="text" style="position: absolute;font-size:2.5vw;width:20vw;right:10% ; text-align: center;"   maxlength="4" size="2"  placeholder="&#9990;&nbsp; 0377414995 "/> </span> 
-        <span><button id="btn"style="position: absolute;font-size:3vw;z-index:1;left:0%;top:0%; display:none;">[]</button></span> 
-  
      
-      <span class="name" id="clock" style="position: absolute;font-size:3vw;left:15%;"></span>
+      <div class="container-main" id="clock" style=" font-size:150%;text-align: center;"></div>
+       <div class="container-info"><input id="textm"  class="myTextBox"  type="text" style="font-size:150%;width:50vw;line-height: 125%;text-align: center; margin:auto; "   maxlength="4" size="2"  placeholder="&#9990;&nbsp; 0377414995 "/> </div> 
+       
+
      
-     </div>
-  
+
+     
     
   
 
 
-   	<div id="demo" class="relative" title="Bài tập" style="font-size: 3vw;"> 
+   	<div id="demo" class="relative" title="Bài tập" > 
 		
 	</div>   
-<br>
 
-  <br>
-  <iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   allow="" style="display:none;justify-content: center;"> </iframe>
+
+
+  <iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   allow="" style="justify-content: center;padding:2%"> </iframe>
 
     <!-- Script -->
-    <script >
+    
 
-let myDocument = document.documentElement;
-
-
-btn.addEventListener("click", ()=>{
-    if(btn.textContent == "[]"){
-        if(myDocument.requestFullscreen){
-            myDocument.requestFullscreen();
-        }
-        else if(myDocument.msRequestFullscreen){
-            myDocument.msRequestFullscreen();
-        }
-        else if(myDocument.mozRequestFullscreen){
-            myDocument.mozRequestFullscreen();
-        }
-        else if(myDocument.webkitRequestFullscreen){
-            myDocument.webkitRequestFullscreen();
-        }
-
-        btn.textContent = "][";
-    }
-    else{
-        if(document.exitFullscreen){
-            document.exitFullscreen();
-        }
-        else if(document.msexitFullscreen){
-            document.msexitFullscreen();
-        }
-        else if(document.mozexitFullscreen){
-            document.mozexitFullscreen();
-        }
-        else if(document.webkitexitFullscreen){
-            document.webkitexitFullscreen();
-        }
-
-        btn.textContent = "[]";
-    }
-});
-  </script>
-
-	 
-	
 
 	<script>
-  function toggleFullScreen(elem) {
-  if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
-    if (elem.requestFullScreen) {
-      elem.requestFullScreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullScreen) {
-      elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    }
-  } else {
-    if (document.cancelFullScreen) {
-      document.cancelFullScreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitCancelFullScreen) {
-      document.webkitCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  }
-}
-</script>
-<script>
-function toggle(e) {
-  let txt = e.innerText;
-  e.innerText = txt == "][" ? "[]" : "][";
-}
+let text =window.location.href; 
+let position = text.search("/?i=");
+let position0 = text.search("s://");
+if(position<0&&position0>0){document.getElementById("textm").style.display = "flex";document.getElementById("clock").style.display = "flex"; }else{document.getElementById("textm").style.display = "none"; document.getElementById("clock").style.display = "none";};
+
+   const fullscreenButton =  document.getElementById('fullscreenButton');
+
+        fullscreenButton.addEventListener('click', toggleFullscreen);
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement &&  !document.mozFullScreenElement &&    !document.webkitFullscreenElement &&      !document.msFullscreenElement) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+                
+                
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+               
+                
+            }
+        }
 </script>
 
-<script>
-     function reloadPage(){
-       const url = new URL(window.location.href);
-  url.searchParams.set('reloadTime', Date.now().toString());
-  window.location.href = url.toString();
-    }
-</script>
-	
 
     
 
@@ -278,6 +256,9 @@ $(function(){
 
         } else {
 
+document.getElementById("iframeL").setAttribute("style", "left:0;top:0;position: absolute;");
+
+
             clearTimeout(timer);    //prevent single-click action
             Bfunction();  //perform double-click action
             clicks = 0;             //after action performed, reset counter
@@ -297,10 +278,7 @@ $(function(){
 
 
 <script>
- var texth=window.location.href;
-  var textl=texth.slice(texth.search("=")+1, texth.length);
-  var num=Date.now()-parseFloat(textl);
-  if (num<60000){document.getElementById("textm").style.display = "flex";document.getElementById("mytn").style.display = "none";document.getElementById("clock").style.display = "flex";document.getElementById("btn").style.display = "none";} else {document.getElementById("textm").style.display = "none";document.getElementById("clock").style.display = "none";document.getElementById("btn").style.display = "none";};
+
 setInterval(myTimer, 1000);
 
 
@@ -309,7 +287,7 @@ setInterval(myTimer, 1000);
 function myTimer() {
      const today = new Date();
 today.setHours(today.getHours()+7); 
-  document.getElementById("clock").innerHTML= today.toISOString().substring(0,10)+"&nbsp;"+"&#9788;"+"&nbsp;"+today.toISOString().substring(11,19);
+  document.getElementById("clock").innerHTML="&nbsp;"+"&nbsp;"+"&nbsp;"+"&nbsp;"+"&nbsp;"+"&nbsp;"+"&nbsp;"+ today.toISOString().substring(0,10)+"&nbsp;"+"&#9788;"+"&nbsp;"+today.toISOString().substring(11,19);
 
 
   var bd ="";
@@ -336,7 +314,7 @@ if(db!="" && bd==""){kte=ktb;};
  
  
    if(kte> 0 ) {document.getElementById("clock").style.display = "flex";
-       document.getElementById("clock").innerHTML = "&nbsp;"+"&nbsp;"+"&nbsp;"+ bd +"&#128466;" +db ;
+       document.getElementById("clock").innerHTML ="&nbsp;"+"&nbsp;"+"&nbsp;"+"&nbsp;"+ "&nbsp;"+"&nbsp;"+"&nbsp;"+ bd +"◀▶" +db ;
      
 document.getElementById("iframeL").style.display = "none";
  
@@ -346,7 +324,7 @@ document.getElementById("iframeL").style.display = "none";
 
 }
 </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 
 	
 <script>
@@ -355,23 +333,26 @@ function myFunction(){
 var text;
                               
 switch (m) {
-  case "2301":
+  case "2402":
     text = "https://script.google.com/macros/s/AKfycbxx2uDw8TGImJkc89NT1QPwpdvF0rVHSSl_nvbs53YofL_pVJCWdPE-pMUBu7hJ3dPn/exec";
     break;
-  case "2305":
+  case "2406":
     text = "https://script.google.com/macros/s/AKfycbxiTRVQDqDEB0dfecv0m65ReI04gF3eKhMGFKl9TV_WkIvQUdoQzyO9cLRw8c4fari3/exec";
     break;
-case "2311":
+case "2407":
 text="https://script.google.com/macros/s/AKfycbza11iiSMagX4_mLPiJgb1SsCUtmkgA5W00siRTKfU5R65qH3ASNGuw0gPZcLab9DOD_w/exec";
 break;
-    case "2005":
-text="https://script.google.com/macros/s/AKfycbzxAk8Kh8CfxnUjvg3CShdsc2MwKMfc5adKcYsrZJ0eH1p9KaZ2nXHEt5_qXRuVTVqr3g/exec";
+    case "2202":
+text="https://script.google.com/macros/s/AKfycbwr0p3cSFjyN4qqNBHZLaq783MzA_fED4LGnrcNmFRYwHgxoX8EkTtlSpWeUsJTwiSxuQ/exec";
 break;
-   case "2011":
+   case "2213":
 text="https://script.google.com/macros/s/AKfycbxjMcJIYMj2-h-SHV2NhjNvEEXh0KUoTBj7WMt8qkaPc6JjykR9JO8gXGAbEkjQ7kMpRQ/exec";
 
 break;
+case "0000":
+text="./web/formnew.html";
 
+break;
   default:
     text="https://script.google.com/macros/s/AKfycbxnS0URP8zDuPxF07Knk0BuHphD2Zg_RTpR4MrrrlyhowsNfFBi94bw8GbdZIDKE30/exec";
     break;
@@ -391,23 +372,27 @@ function Bfunction()    {
 var text;
                               
 switch (m) {
-  case "2301":
-    text = "./web/lien/Geo01.html";
+  case "2402":
+    text = "./web/GeoA.html";
 break;
-  case "2305":
-    text = "./web/lien/Geo01.html";
+  case "2406":
+    text = "./web/GeoB.html";
     break;
-case "2311":
-text="./web/lien/Geo01.html";
+case "2407":
+text= "./web/GeoC.html";
 break;
-    case "2005":
-text="./web/lien/Geo10.html";
+    case "2202":
+text= "./web/GeoD.html";
 break;
-   case "2011":
-text="./web/lien/Geo10.html";
+   case "2213":
+text= "./web/GeoO.html";
+break;
+case "0000":
+text="./web/indexL.html";
+
 break;
 default:
-    text="";
+    text="https://script.google.com/macros/s/AKfycbxnS0URP8zDuPxF07Knk0BuHphD2Zg_RTpR4MrrrlyhowsNfFBi94bw8GbdZIDKE30/exec";
     break;
 };
                                
@@ -419,7 +404,7 @@ if(text!=""){ window.open(text,"iframe_l");
              }  ; 
 
 
-  var time_in_minutes =2;
+  var time_in_minutes =null;
 
 
 
@@ -446,7 +431,7 @@ function run_clock(id,endtime){
           c=Math.floor( t.seconds %10 ); 
          d=Math.floor( t.seconds /10 ); 
       
-		clock.innerHTML ="&nbsp;"+b+a+'\u23F3'+d+c;
+		clock.innerHTML ="&nbsp;"+b+a+'🔖'+d+c;
 		if(t.total<=0){ clearInterval(timeinterval); 
                       document.getElementById("demo").style.display = "none";
                       document.getElementById("iframeL").style.display = "none";}
