@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Tứ Phân Vị</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            padding: 5px;
+            margin-top: 10px;
+        }
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Nhập dữ liệu</h2>
+
+    <label for="rawData">Dữ liệu thô (các giá trị cách nhau bằng dấu phẩy):</label><br>
+    <input type="text" id="rawData" placeholder="Ví dụ: 1,7,8,15"><br>
+
+    <label for="startPoints">Lớp (cách nhau bằng dấu phẩy, để trống nếu không có lớp):</label><br>
+    <input type="text" id="startPoints" placeholder="Ví dụ: 1,7,8,15"><br>
+
+    <label for="frequencies">Tần số cho các lớp (cách nhau bằng dấu phẩy):</label><br>
+    <input type="text" id="frequencies" placeholder="Ví dụ: 2,0,5"><br>
+
+    <button onclick="handleProcess()">Xử lý và tính Tứ Phân Vị</button>
+
+    <div class="result">
+        <p>Kết quả:</p>
+        <p id="newStartPoints"></p>
+        <p id="newFrequencies"></p>
+        <p id="quartileQ1"></p>
+        <p id="quartileQ2"></p>
+        <p id="quartileQ3"></p>
+    </div>
+
+    <script>
+        function calculateFrequenciesFromData(data, startPoints) {
+            const frequencies = Array(startPoints.length - 1).fill(0);
+            data.forEach(value => {
+                for (let i = 0; i < startPoints.length - 1; i++) {
+                    if (value >= startPoints[i] && value < startPoints[i + 1]) {
+                        frequencies[i]++;
+                        break;
+                    }
+                }
+            });
+            return frequencies;
+        }
+
+        function processFrequency(startPoints, frequencies) {
+            while (frequencies[0] === 0) {
+                frequencies.shift();
+                startPoints.shift();
+            }
+            while (frequencies[frequencies.length - 1] === 0) {
+                frequencies.pop();
+                startPoints.pop();
+            }
+
+            let resultStartPoints = [];
+            let resultFrequencies = [];
+            for (let i = 0; i < frequencies.length; i++) {
+                if (frequencies[i] === 0) {
+                    if (i > 0 && i < frequencies.length - 1) {
+                        startPoints[i + 1] = (startPoints[i] + startPoints[i + 1]) / 2;
+                    }
+                } else {
+                    resultStartPoints.push(startPoints[i]);
+                    resultFrequencies.push(frequencies[i]);
+                }
+            }
+            resultStartPoints.push(startPoints[startPoints.length - 1]);
+            return { newStartPoints: resultStartPoints, newFrequencies: resultFrequencies };
+        }
+
+        function calculateQuartilesDiscrete(data) {
+            data.sort((a, b) => a - b);
+            const n = data.length;
+
+            if (n === 1) {
+                return { Q1: data[0], Q2: data[0], Q3: data[0] };
+            } else if (n === 2) {
+                return { Q1: data[0], Q2: (data[0] + data[1]) / 2, Q3: data[1] };
+            }
+
+            const getPercentileValue = (percentile) => {
+                const index = percentile * (n + 1) / 100 - 1;
+                if (index % 1 === 0) {
+                    return data[index];
+                } else {
+                    const lower = Math.floor(index);
+                    const upper = Math.ceil(index);
+                    return data[lower] + (index - lower) * (data[upper] - data[lower]);
+                }
+            };
+
+            return {
+                Q1: getPercentileValue(25),
+                Q2: getPercentileValue(50),
+                Q3: getPercentileValue(75)
+            };
+        }
+
+        function calculateQuartilesWithFrequency(data, frequencies) {
+            const expandedData = [];
+            data.forEach((value, index) => {
+                for (let i = 0; i < frequencies[index]; i++) {
+                    expandedData.push(value);
+                }
+            });
+            return calculateQuartilesDiscrete(expandedData);
+        }
+
+        function calculateQuartiles(startPoints, frequencies) {
+            const n = frequencies.reduce((sum, freq) => sum + freq, 0);
+            const quartiles = [];
+
+            for (let k = 1; k <= 3; k++) {
+                const target = k * n / 4;
+                let cumulativeFreq = 0;
+                let lowerBound = 0;
+                let groupWidth = 0;
+                let groupFrequency = 0;
+
+                for (let i = 0; i < frequencies.length; i++) {
+                    cumulativeFreq += frequencies[i];
+                    if (cumulativeFreq >= target && frequencies[i] !== 0) {
+                        lowerBound = startPoints[i];
+                        groupWidth = startPoints[i + 1] - startPoints[i];
+                        groupFrequency = frequencies[i];
+                        cumulativeFreq -= frequencies[i];
+                        break;
+                    }
+                }
+
+                const quartile = lowerBound + ((target - cumulativeFreq) / groupFrequency) * groupWidth;
+                quartiles.push(quartile);
+            }
+
+            return { Q1: quartiles[0], Q2: quartiles[1], Q3: quartiles[2] };
+        }
+
+      function handleProcess() {
+    const rawDataInput = document.getElementById("rawData").value;
+    const startPointsInput = document.getElementById("startPoints").value;
+    const frequenciesInput = document.getElementById("frequencies").value;
+
+    let startPoints, frequencies;
+
+    if (rawDataInput) {
+        const rawData = rawDataInput.split(',').map(Number);
+
+        if (!startPointsInput && !frequenciesInput) {
+            // Tạo nhóm và tần số tự động khi chỉ có dữ liệu thô
+            const uniqueData = [...new Set(rawData)].sort((a, b) => a - b);
+            const autoFrequencies = uniqueData.map(value => rawData.filter(num => num === value).length);
+            
+            document.getElementById("newStartPoints").innerText = "Nhóm: " + uniqueData.join(", ");
+            document.getElementById("newFrequencies").innerText = "Tần số: " + autoFrequencies.join(", ");
+
+            const quartiles = calculateQuartilesWithFrequency(uniqueData, autoFrequencies);
+            document.getElementById("quartileQ1").innerText = "Q1: " + quartiles.Q1.toFixed(2);
+            document.getElementById("quartileQ2").innerText = "Q2 (Median): " + quartiles.Q2.toFixed(2);
+            document.getElementById("quartileQ3").innerText = "Q3: " + quartiles.Q3.toFixed(2);
+            return;
+        }
+
+        if (startPointsInput && !frequenciesInput) {
+            startPoints = startPointsInput.split(',').map(Number);
+            frequencies = calculateFrequenciesFromData(rawData, startPoints);
+        } else if (frequenciesInput && !startPointsInput) {
+            const frequencies = frequenciesInput.split(',').map(Number);
+            const quartiles = calculateQuartilesWithFrequency(rawData, frequencies);
+            document.getElementById("newStartPoints").innerText = "Nhóm: Dữ liệu rời rạc với tần số";
+            document.getElementById("newFrequencies").innerText = "Tần số: " + frequencies.join(", ");
+            document.getElementById("quartileQ1").innerText = "Q1: " + quartiles.Q1.toFixed(2);
+            document.getElementById("quartileQ2").innerText = "Q2 (Median): " + quartiles.Q2.toFixed(2);
+            document.getElementById("quartileQ3").innerText = "Q3: " + quartiles.Q3.toFixed(2);
+            return;
+        } else {
+            startPoints = startPointsInput.split(',').map(Number);
+            frequencies = frequenciesInput.split(',').map(Number);
+        }
+    } else {
+        startPoints = startPointsInput.split(',').map(Number);
+        frequencies = frequenciesInput.split(',').map(Number);
+    }
+
+    const { newStartPoints, newFrequencies } = processFrequency(startPoints, frequencies);
+
+    document.getElementById("newStartPoints").innerText = "Nhóm mới: " + newStartPoints.join(", ");
+    document.getElementById("newFrequencies").innerText = "Tần số mới: " + newFrequencies.join(", ");
+
+    if (newStartPoints.length > 1 && newFrequencies.length > 0) {
+        const quartiles = calculateQuartiles(newStartPoints, newFrequencies);
+        document.getElementById("quartileQ1").innerText = "Q1: " + quartiles.Q1.toFixed(2);
+        document.getElementById("quartileQ2").innerText = "Q2 (Median): " + quartiles.Q2.toFixed(2);
+        document.getElementById("quartileQ3").innerText = "Q3: " + quartiles.Q3.toFixed(2);
+    }
+}
+
+    </script>
+</body>
+</html>

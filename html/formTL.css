@@ -1,0 +1,203 @@
+ .custom-file-upload {
+            display: inline;
+                       color: white;
+          
+        }
+
+        /* Hiển thị tên file đã chọn */
+        #custom {
+        display: none;
+    }
+
+        /* Ẩn input file */
+        #media {
+            display: none;
+        }
+  
+.form-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các form */
+} 
+ ol {
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            position: relative;
+        }
+   li {
+            counter-increment: custom-counter;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+           
+            position: absolute;
+        }
+        /* Chèn thứ tự trước mỗi mục li */
+        .M li::before {
+            content: counter(custom-counter, lower-alpha) ") ";
+            font-weight: bold;
+        }
+.S li::before {
+            content: counter(custom-counter, upper-alpha) ") ";
+            font-weight: bold;
+        }
+.M li::before {
+    content: counter(custom-counter, lower-alpha) ") ";
+    font-weight: bold;
+}
+
+
+
+      
+
+    img {
+    padding: 0;
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+     
+        body, html {
+            margin: 10;
+            padding: 10;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            display: flex;
+            font-size: 100%
+        }
+ input {
+      
+    
+      font-size: 150%; /* Kích thước chữ */
+    }
+label,
+.error {
+  display: inline-block; /* Đảm bảo các thành phần nằm trên cùng một hàng */
+ font-size: 150%;
+}
+
+
+.error {
+  color: red; /* Tùy chỉnh màu lỗi */
+}
+ .checkbox-group {
+            display: flex;  /* Sắp xếp theo hàng ngang */
+            gap: 20px;      /* Khoảng cách giữa các checkbox */
+        }
+
+        /* Tăng kích thước checkbox */
+        input[type="checkbox"] {
+            transform: scale(1.5); /* Phóng to checkbox */
+        }
+.radio-group {
+            display: flex;  /* Sắp xếp theo hàng ngang */
+            gap: 20px;      /* Khoảng cách giữa các checkbox */
+        }
+
+        /* Tăng kích thước checkbox */
+        input[type="radio"] {
+            transform: scale(1.5); /* Phóng to checkbox */
+        }
+        .error {
+            color: red;
+            display: none;
+        }
+        .hidden {
+            display: none;
+        }
+        .saved {
+            background-color:lightblue;
+            color: white;
+        }
+        #timer {
+            font-size: 1.5rem;
+            color: red;
+            margin-bottom: 10px;
+        }
+input[type="checkbox"] {
+    /* Ẩn giao diện mặc định của checkbox */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked::before {
+    content: "x";
+    font-size: 18px;
+    color: black;
+    position: absolute;
+    top: -3px;
+    left: 3px;
+}
+#quickNavButtons {
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;  /* Cố định vị trí để luôn nằm ở bên phải hoặc dưới cùng */
+    margin: 10px;
+}
+
+/* Khi màn hình ngang (landscape) */
+@media (orientation: landscape) {
+    #quickNavButtons {
+        flex-direction: column;  /* Sắp xếp các button theo hàng dọc */
+        right: 0;  /* Đặt div bên phải ngoài cùng */
+        top: 0;    /* Đặt ở trên cùng của trang */
+        height: 100%;  /* Chiều cao bằng 100% để bao phủ toàn bộ chiều cao màn hình */
+    }
+#questionText{
+            width: 80%; /* Chiều rộng 40% cho mỗi div */
+   height:100vh;
+   
+      flex-wrap: wrap;
+            position: absolute;
+           font-size:150%;
+ 
+            margin: 0 auto;
+        }
+.form-container {
+    display: flex;
+flex-direction: row;
+}
+}
+
+/* Khi màn hình dọc (portrait) */
+@media (orientation: portrait) {
+    #quickNavButtons {
+        flex-direction: row;  /* Sắp xếp các button theo hàng ngang */
+        bottom: 0;  /* Đặt div ở dưới cùng */
+        left: 0;    /* Đặt div sát bên trái */
+        width: 100%;  /* Chiều rộng bằng 100% để phủ kín dưới cùng của màn hình */
+    }
+#questionText{
+            height: 80%; /* Chiều rộng 40% cho mỗi div */
+      width:100%;
+    flex-wrap: wrap;
+  
+            position: absolute;
+           font-size:150%;
+ 
+            margin: 0 auto;
+        }
+
+
+#quickNavButtons button {
+    width: 100px;  /* Điều chỉnh kích thước button */
+    height: 40px;
+    margin: 5px;
+}
+.form-container {
+    display: flex;
+flex-direction: column;}
+}

@@ -1,0 +1,62 @@
+## Copilot
+Để giải phương trình bậc hai dạng $$ax^2 + bx + c = 0$$, bạn có thể làm theo các bước sau:
+- Tính Δ (Delta):
+$$\Delta = b^2 - 4ac$$
+- So sánh Δ với 0:
+    - Nếu $$\Delta < 0$$: Phương trình vô nghiệm.
+    - Nếu $$\Delta = 0$$: Phương trình có nghiệm kép $$x = -\frac{b}{2a}$$.
+    - Nếu $$\Delta > 0$$: Phương trình có hai nghiệm phân biệt:
+$$x_1 = \frac{-b + \sqrt{\Delta}}{2a}$$
+$$x_2 = \frac{-b - \sqrt{\Delta}}{2a}$$
+Ví dụ, với phương trình $$2x^2 - 4x + 2 = 0$$:
+- Tính $$\Delta = (-4)^2 - 4 \cdot 2 \cdot 2 = 16 - 16 = 0$$
+- Vì $$\Delta = 0$$, phương trình có nghiệm kép $$x = \frac{4}{4} = 1$$.
+Nếu bạn có phương trình cụ thể cần giải, hãy cho mình biết nhé!
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">==<math>
+thay ^p bằng /
+\begin{array}{c|c}
+ a^2-b^2 & 
+ \begin{array}{ccc} 1+i & 1-i & \frac{1}{\sqrt{2}}
+ \end{array} \\\hline  
+ \color{green}{
+ \begin{array}{c}a-b \\  a+b \end{array}
+ } & \sqrt {2}
+\end{array}
+\underset{i=1}{\overset{i=n}{\text{text}}}
+
+\begin{array}{c|cccccc}
+x&-\infty&&1&&+\infty \\ \hline\\
+y&+\infty&\searrow&\ce{_{-\infty}{\Vert}_{-\infty}}
+ &\nearrow&+\infty\\
+\end{array}
+
+$ \prescript{14}{2}{\mathbf{C}} $
+
+
+
+$$\\begin{array}{c|cccccc}
+x&-y&&y&&\\begin{array}{c|cccccc}
+x&-y&&y&&3 \\\\\\\\ \\hline
+y&4&\\searrow&{\\Vert}
+ &\\nearrow&+\\infty \\\\\\\\
+\\end{array} \\\\\\\\ \\hline
+y&4&\\searrow&{\\Vert}
+ &\\nearrow&+\\infty \\\\\\\\
+\\end{array}$$
+
+
+\n	New Line	
+\r	Carriage Return	
+\t	Tab	
+\b	Backspace
+
+qui trình xử lý
+1.dán fife thu được thay các kí hiệu bẳng $$
+2. dán file vào pandoc thu được file html
+3. thay display="block" <p> bằng dấu cách và </p> bằng <br> thay ^p bẳng ^t
+4. dán vào file trình chiếu
+lưu ý
+copy vào https://pandoc.org/try/ 
+chọn convert from markdown to html5
+MathML và preserve breaks
+sử dụng ưildcard như reg để tim kiếm ví dụ \*\*(*)\*\* **Text**
