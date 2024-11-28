@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Typing Effect with Navigation and LaTeX</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-multimd-table/dist/markdown-it-multimd-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-div/dist/markdown-it-div.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-sup/dist/markdown-it-sup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-sub/dist/markdown-it-sub.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-ins/dist/markdown-it-ins.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-mark/dist/markdown-it-mark.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-deflist/dist/markdown-it-deflist.min.js"></script>
+    <style>
+        .cursor {
+            display: inline-block;
+            width: 5px;
+            height: 1em;
+            background-color: black;
+            margin-left: 2px;
+            animation: blink 0.8s steps(1) infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        #div1, #div2, #div3, #div4, #div5 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            margin: 10px;
+            white-space: pre-wrap;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .end-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #message {font-size:150%;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+   
+</head>
+<body>
+    <button id="playPauseButton">Pause</button>
+    <button id="prevButton">Previous</button>
+    <button id="nextButton">Next</button>
+
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+    <div id="div4"></div>
+    <div id="div5"></div>
+    <div id="MessageL"></div> <div id="MessageT"></div>
+
+    <script>
+    
+        const markdownContent = [
+            [
+                `This is a normal line`,
+                `This is another line`
+            ],
+            [
+                `This is a delayed line <3s>`,
+                `This is a LaTeX line $x = y + z$`
+            ],
+            [
+                `$$ $$<3s>\n| Header 1 | Header 2 |\n|----------|----------|\n| Row 1    | Row 2    |`
+            ]
+        ];
+
+        const divTargets = [
+            ["div1", "div2"],
+            ["div3", "div4"],
+            ["div1", "div5"]
+        ];
+
+        MathJax = {
+            tex: {
+                displayMath: [['$$', '$$']],
+                inlineMath: [['$', '$']],
+                processEscapes: true,
+                processEnvironments: true
+            }
+        };
+
+        let currentSection = 0;
+        let currentLine = 0;
+        let isPaused = true;
+        let letterIndex = 0;
+        let currentLetterTimeout;
+
+        const md = window.markdownit({
+            html: true,
+            breaks: true,
+            linkify: true,
+            typographer: true,
+        });
+
+        md.use(window.markdownitMultimdTable);
+        md.use(window.markdownitDiv);
+        md.use(window.markdownitSup);
+        md.use(window.markdownitSub);
+        md.use(window.markdownitIns);
+        md.use(window.markdownitMark);
+        md.use(window.markdownitDeflist);
+
+        function preserveLeadingSpaces(content) {
+            return content.replace(/^\s+/gm, (spaces) => {
+                return spaces.replace(/ /g, '&nbsp;');
+            });
+        }
+
+        function isLatexLine(line) {
+            return line.includes('$$') || line.includes('\\begin');
+        }
+
+        function isTableLine(line) {
+            return line.startsWith('|');
+        }
+
+        function clearAllDivs() {
+            document.querySelectorAll("#div1, #div2, #div3, #div4, #div5,#MessageL,#MessageT").forEach(div => {
+                div.innerHTML = '';
+            });
+        }
+
+        function extractDelay(line) {
+            const delayRegex = /<\s*(\d+)\s*s\s*>/;
+            const match = line.match(delayRegex);
+            if (match) {
+                const delay = parseInt(match[1], 10) * 1000;
+                line = line.replace(delayRegex, '').trim();
+                return { delay, line };
+            }
+            return { delay: 0, line };
+        }
+
+        function typeLetterByLetter(line, targetDivId, onComplete) {
+            const div = document.getElementById(targetDivId);
+            if (!div) {
+                onComplete();
+                return;
+            }
+
+            if (letterIndex === 0) div.innerHTML = '';
+
+            const cursorSpan = document.createElement('span');
+            cursorSpan.className = 'cursor';
+            div.appendChild(cursorSpan);
+
+            function typeNextLetter() {
+                if (isPaused) return;
+
+                if (letterIndex < line.length) {
+                    cursorSpan.remove();
+                    div.textContent += line[letterIndex];
+                    div.appendChild(cursorSpan);
+                    letterIndex++;
+                    currentLetterTimeout = setTimeout(typeNextLetter, 50);
+                } else {
+                    const renderedContent = md.render(preserveLeadingSpaces(div.textContent));
+                    div.innerHTML = renderedContent;
+                    MathJax.typesetPromise([div]).then(onComplete);
+                    cursorSpan.remove();
+                }
+            }
+
+            typeNextLetter();
+        }
+
+        function typeLineByLine() {
+            if (isPaused) return;
+
+            if (currentLine < markdownContent[currentSection].length) {
+                let line = markdownContent[currentSection][currentLine];
+                let targetDivId = divTargets[currentSection][currentLine];
+
+                const { delay, line: processedLine } = extractDelay(line);
+                line = processedLine;
+
+                if (isLatexLine(line) || isTableLine(line)) {
+                    const div = document.getElementById(targetDivId);
+                    const renderedContent = md.render(preserveLeadingSpaces(line));
+                    div.innerHTML = renderedContent;
+                    MathJax.typesetPromise([div]).then(() => {
+                        currentLine++;
+                        setTimeout(typeLineByLine, delay || 1000);
+                    });
+                } else {
+                    typeLetterByLetter(line, targetDivId, () => {
+                        currentLine++;
+                        letterIndex = 0;
+                        setTimeout(typeLineByLine, delay || 1000);
+                    });
+                }
+            } else {
+ document.getElementById("MessageL").textContent = String.fromCharCode(0x25A7);
+            }
+        }
+
+        document.getElementById("playPauseButton").addEventListener("click", () => {togglePlayPause();
+            isPaused = !isPaused;
+            document.getElementById("playPauseButton").textContent = isPaused ? "Play" : "Pause";
+            if (!isPaused) typeLineByLine();
+            else clearTimeout(currentLetterTimeout);
+        });
+
+        document.getElementById("nextButton").addEventListener("click", () => {
+            if (currentSection < markdownContent.length - 1) {nextText();
+                currentSection++;
+                currentLine = 0;
+                clearAllDivs();
+                isPaused=true;
+            }
+        });
+
+        document.getElementById("prevButton").addEventListener("click", () => {previousText();
+            if (currentSection > 0) {
+                currentSection--;
+                currentLine = 0;
+                clearAllDivs();
+                isPaused=true;
+            }
+        });
+
+        window.onload = typeLineByLine;
+    </script>
+
+
+
+    <div class="controls" STYLE="DISPLAY:NONE;">
+       
+        <button id="playBtn">Play</button>
+       
+    </div>
+    
+    <script>
+        
+        let isPlay = false;
+        let currentIndex = 0;
+        let currentPart = 0;
+        let charIndex = 0;
+        let utterance;
+        let voices = [];
+        let wasPausedByVisibilityChange = false;
+
+        const texttts = [
+            "Xin chào, đây là <R1.5> ví dụ nói nhanh hơn",
+            " <P2> với pitch cao hơn <V0.5> và volume nhỏ."
+        ];
+
+        function getVoices() {
+            voices = window.speechSynthesis.getVoices();
+            return voices.filter(voice => voice.lang === 'vi-VN');
+        }
+
+        function processText(text) {
+            const regex = /<(.*?)>/g;
+            let result;
+            let lastIndex = 0;
+            let segments = [];
+            let currentRate = 1;
+            let currentPitch = 1;
+            let currentVolume = 1;
+            while ((result = regex.exec(text)) !== null) {
+                const partText = text.substring(lastIndex, result.index);
+                segments.push({
+                    text: partText,
+                    rate: currentRate,
+                    pitch: currentPitch,
+                    volume: currentVolume,
+                    delay: 0
+                });
+                const tag = result[1];
+                if (tag.includes('R')) {
+                    const rateValue = parseFloat(tag.replace('R', ''));
+                    currentRate = rateValue;
+                } else if (tag.includes('D')) {
+                    const seconds = parseInt(tag.replace('D', ''));
+                    segments.push({
+                        text: '',
+                        rate: currentRate,
+                        pitch: currentPitch,
+                        volume: currentVolume,
+                        delay: seconds * 1000
+                    });
+                } else if (tag.includes('P')) {
+                    const pitchValue = parseFloat(tag.replace('P', ''));
+                    currentPitch = pitchValue;
+                } else if (tag.includes('V')) {
+                    const volumeValue = parseFloat(tag.replace('V', ''));
+                    currentVolume = volumeValue;
+                }
+                lastIndex = regex.lastIndex;
+            }
+            segments.push({
+                text: text.substring(lastIndex),
+                rate: currentRate,
+                pitch: currentPitch,
+                volume: currentVolume,
+                delay: 0
+            });
+            return segments;
+        }
+
+        function speakPart() {
+            const parts = processText(texttts[currentIndex]);
+            const messageElement = document.getElementById('MessageT');
+            messageElement.textContent = '';
+
+            function speak() {
+                if (currentPart >= parts.length) {
+                    document.getElementById('playBtn').textContent = "Play";
+                    isPlay = false;
+                  messageElement.textContent = String.fromCharCode(0x25A8);
+                    return;
+                }
+                const part = parts[currentPart];
+                if (part.delay > 0) {
+                    setTimeout(() => {
+                        currentPart++;
+                        charIndex = 0;
+                        speak();
+                    }, part.delay);
+                } else if (part.text.trim()) {
+                    const textToSpeak = part.text.substring(charIndex);
+                    utterance = new SpeechSynthesisUtterance(textToSpeak);
+                    utterance.voice = getVoices()[0];
+                    utterance.rate = part.rate;
+                    utterance.pitch = part.pitch;
+                    utterance.volume = part.volume;
+                    utterance.onboundary = (event) => {
+                        if (event.name === 'word') {
+                            charIndex = event.charIndex;
+                        }
+                    };
+                    utterance.onend = () => {
+                        charIndex = 0;
+                        currentPart++;
+                        speak();
+                    };
+                    window.speechSynthesis.speak(utterance);
+                } else {
+                    currentPart++;
+                    charIndex = 0;
+                    speak();
+                }
+            }
+            speak();
+        }
+
+        function togglePlayPause() {
+            if (isPlay) {
+                window.speechSynthesis.cancel();
+                document.getElementById('playBtn').textContent = "Play";
+                isPlay = false;
+            } else {
+                speakPart();
+                document.getElementById('playBtn').textContent = "Pause";
+                isPlay = true;
+            }
+        }
+
+        function previousText() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                charIndex = 0;
+                currentPart = 0;
+                window.speechSynthesis.cancel();
+                if (isPlay) {
+                    speakPart();
+                }
+            }
+        }
+
+        function nextText() {
+            if (currentIndex < texttts.length - 1) {
+                currentIndex++;
+                charIndex = 0;
+                currentPart = 0;
+                window.speechSynthesis.cancel();
+                if (isPlay) {
+                    speakPart();
+                }
+            }
+        }
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && isPlay) {
+                window.speechSynthesis.cancel();
+                wasPausedByVisibilityChange = true;
+                isPlay = false;
+            } else if (!document.hidden && wasPausedByVisibilityChange) {
+                wasPausedByVisibilityChange = false;
+                speakPart();
+                document.getElementById('playBtn').textContent = "Pause";
+                isPlay = true;
+            }
+        });
+
+        window.speechSynthesis.onvoiceschanged = getVoices;
+    </script>
+</body>
+</html>
+
