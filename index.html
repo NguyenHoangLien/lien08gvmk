@@ -4,28 +4,23 @@
 <head> 
       
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="expires" content="0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 <meta http-equiv="expires" content="timestamp" />
-<meta http-equiv="pragma" content="no-cache" />
-  
-	
 
-		<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+		<script src="./web/jquery/jquery.min.js"></script>
 	
 		
 		
-		<script src="https://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
-		 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="./web/jquery/jquery-ui.min.js"></script>
+		 <link rel="stylesheet" href="./web/jquery/jquery-ui.css">
 
 
 
 
-<script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -166,16 +161,17 @@ background: white;
 		
   </head>	
 <body  >
-    <button id="fullscreenButton" style="position:fixed; top:0%;left:0%;z-index:5;font-size:1rem;">&#128260;</button>
+ <span>    <button id="reloadBtn" onclick="reloadPage();" style=" justify-content: center;align-items: center; top:50%; left:50%;position:absolute;font-size:200%; ">HI !</button>  </span>
+    <button id="fullscreenButton" style="position:fixed; bottom:2%;right:2%;z-index:5;font-size:1rem;">&#128260;</button>
     <p>
      
-      <div class="container-main" id="clock" style=" font-size:150%;text-align: center;"></div>
-       <div class="container-info"><input id="textm"  class="myTextBox"  type="text" style="font-size:150%;width:50vw;line-height: 125%;text-align: center; margin:auto; "   maxlength="4" size="2"  placeholder="&#9990;&nbsp; 0377414995 "/> </div> 
+      <div class="container-main" id="clock" style=" font-size:150%;text-align: center; display:none;"></div>
+       <div class="container-info"><input id="textm"  class="myTextBox"  type="text" style="font-size:150%;width:50vw;line-height: 125%;text-align: center; margin:auto;display:none; "   maxlength="4" size="2"  placeholder="&#9990;&nbsp; 0377414995 "/> </div> 
        
 
      
 
-     
+      
     
   
 
@@ -186,18 +182,61 @@ background: white;
 
 
 
-  <iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   allow="" style="justify-content: center;padding:2%"> </iframe>
+  <iframe  id="iframeL" src=""   name="iframe_l" height="100vh"   width="100%"  align="center"   allow="" style="justify-content: center; padding:5%"> </iframe>
 
     <!-- Script -->
     
 
 
-	<script>
-let text =window.location.href; 
-let position = text.search("/?i=");
-let position0 = text.search("s://");
-if(position<0&&position0>0){document.getElementById("textm").style.display = "flex";document.getElementById("clock").style.display = "flex"; }else{document.getElementById("textm").style.display = "none"; document.getElementById("clock").style.display = "none";};
+<script>	
 
+     function reloadPage() {
+    // Ẩn nút reload ngay khi được bấm
+    const reloadButton = document.getElementById("reloadBtn");
+    reloadButton.style.display = "none";
+
+    // Lưu trạng thái nút vào sessionStorage
+    sessionStorage.setItem("buttonHidden", "true");
+
+    // Thêm tham số `reloadTime` để xử lý logic
+    const url = new URL(window.location.href);
+    url.searchParams.set('reloadTime', Date.now().toString());
+
+    // Cập nhật URL mà không tải lại trang
+    window.history.replaceState(null, '', url.origin + url.pathname);
+
+    // Thực hiện logic hiển thị nội dung mới
+    document.getElementById("iframeL").style.display = "block";
+    document.getElementById("clock").style.display = "block";
+    document.getElementById("textm").style.display = "block";
+}
+
+window.onload = function() {
+    const reloadButton = document.getElementById("reloadBtn");
+
+    // Kiểm tra trạng thái nút từ sessionStorage
+    const buttonHidden = sessionStorage.getItem("buttonHidden");
+
+    // Hiển thị nội dung dựa trên trạng thái nút
+    if (buttonHidden === "true") {
+        reloadButton.style.display = "none";
+        document.getElementById("iframeL").style.display = "flex";
+        document.getElementById("clock").style.display = "flex";
+        document.getElementById("textm").style.display = "flex";
+    } else {
+        reloadButton.style.display = "block";
+        document.getElementById("iframeL").style.display = "none";
+        document.getElementById("clock").style.display = "none";
+        document.getElementById("textm").style.display = "none";
+    }
+
+    // Xóa trạng thái sessionStorage để nút xuất hiện lại khi tải lại từ trình duyệt
+    sessionStorage.removeItem("buttonHidden");
+};
+
+    </script>
+
+<script>
    const fullscreenButton =  document.getElementById('fullscreenButton');
 
         fullscreenButton.addEventListener('click', toggleFullscreen);
@@ -334,27 +373,24 @@ var text;
                               
 switch (m) {
   case "2402":
-    text = "https://script.google.com/macros/s/AKfycbxx2uDw8TGImJkc89NT1QPwpdvF0rVHSSl_nvbs53YofL_pVJCWdPE-pMUBu7hJ3dPn/exec";
+    text = "./web/Amk.html";
     break;
   case "2406":
-    text = "https://script.google.com/macros/s/AKfycbxiTRVQDqDEB0dfecv0m65ReI04gF3eKhMGFKl9TV_WkIvQUdoQzyO9cLRw8c4fari3/exec";
+    text = "./web/Bmk.html";
     break;
 case "2407":
-text="https://script.google.com/macros/s/AKfycbza11iiSMagX4_mLPiJgb1SsCUtmkgA5W00siRTKfU5R65qH3ASNGuw0gPZcLab9DOD_w/exec";
+text="./web/Cmk.html";
 break;
     case "2202":
-text="https://script.google.com/macros/s/AKfycbwr0p3cSFjyN4qqNBHZLaq783MzA_fED4LGnrcNmFRYwHgxoX8EkTtlSpWeUsJTwiSxuQ/exec";
+text="./web/Dmk.html";
 break;
    case "2213":
-text="https://script.google.com/macros/s/AKfycbxjMcJIYMj2-h-SHV2NhjNvEEXh0KUoTBj7WMt8qkaPc6JjykR9JO8gXGAbEkjQ7kMpRQ/exec";
+text="./web/Emk.html";
 
 break;
-case "0000":
-text="./html/formnew.html";
 
-break;
   default:
-    text="https://script.google.com/macros/s/AKfycbxnS0URP8zDuPxF07Knk0BuHphD2Zg_RTpR4MrrrlyhowsNfFBi94bw8GbdZIDKE30/exec";
+    text="";
     break;
 }
                         
@@ -373,26 +409,22 @@ var text;
                               
 switch (m) {
   case "2402":
-    text = "./web/GeoA.html";
+    text = "./web/formA.html";
 break;
   case "2406":
-    text = "./web/GeoB.html";
+    text = "./web/formB.html";
     break;
 case "2407":
-text= "./web/GeoC.html";
+text= "./web/formC.html";
 break;
     case "2202":
-text= "./web/GeoD.html";
+text= "./web/formD.html";
 break;
    case "2213":
-text= "./web/GeoO.html";
-break;
-case "0000":
-text="/html/mixPPJL.html";
-
+text= "./web/formE.html";
 break;
 default:
-    text="https://script.google.com/macros/s/AKfycbxnS0URP8zDuPxF07Knk0BuHphD2Zg_RTpR4MrrrlyhowsNfFBi94bw8GbdZIDKE30/exec";
+    text="";
     break;
 };
                                
