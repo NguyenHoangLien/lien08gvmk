@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form with Bootstrap Modal</title>
+  <link href="./jquery/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./jquery/dataTables.min.css" />
+    <script src="./jquery/jqueryv.min.js"></script>
+    <script src="./jquery/popper.min.js"></script>
+    <script src="./jquery/bootstrap.min.js"></script>
+    <script src="./jquery/dataTables.min.js"></script>
+    <script src="./jquery/sweetalert.all.min.js"></script>
+   
+<script src="./jquery/bootstrap.bundle.min.js"></script>
+  <style>
+    .modal-content {
+      padding: 20px;
+    }
+  .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+ /* Ẩn input file gốc */
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Hiển thị tên file đã chọn */
+        #file-name {
+            margin-left: 10px;
+            font-style: italic;
+            color: #333;
+        }
+
+        /* Ẩn input file */
+        #media {
+            display: none;
+        }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container">
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#myModal">
+        &#128238;
+    </button>
+
+    <!-- Modal Popup -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                   
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" display="none">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="form-container">
+                        <form id="submit-to-google-sheet">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="01# Lý An BT 10;"  pattern="^[0-4 G][0-9 V][#]\s.* BT[\s %].*;$" required />
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="media" class="custom-file-upload">&#128190;</label>
+                                <input class="form-control-file" type="file" name="media" id="media" />
+                                <span id="file-name"></span>
+                            </div>
+<br>
+                            <button type="submit" class="btn btn-primary btn-block" id="submit-button">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Thank you message (hidden by default) -->
+                    <div id="thank-you-message" style="display: none;">
+                        <h5>Thanks!</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DataTable (Outside Modal) -->
+    <div class="mt-5">
+        <table id="dataTable" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 30%;" >⌛</th>
+                    <th style="width: 55%;"><img src="./jquery/images/person.jpg" ></th>
+                    <th style="width: 5%;">📌</th>
+                    <th style="width: 10%;">🖊️</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data will be dynamically loaded here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+  <script>
+
+ const scriptURL ='https://script.google.com/macros/s/AKfycby4E8OCz76fPXPknjoGsibJsNhN2M_ofezrgpecJkIxgu4tIBBhMZ3qET6MtWxZbx9t/exec';
+const form = document.forms["submit-to-google-sheet"];
+const fileInput = document.getElementById("media");
+const fileNameDisplay = document.getElementById("file-name");
+const submitButton = document.getElementById("submit-button");
+const formContainer = document.getElementById("form-container");
+const thankYouMessage = document.getElementById("thank-you-message");
+
+fileInput.addEventListener("change", function () {
+  const fileName = this.files[0]?.name || "";
+  fileNameDisplay.textContent = fileName;
+});
+
+ document.addEventListener('DOMContentLoaded', () => {
+  const openButton = document.querySelector('[data-toggle="modal"]'); // Nút mở modal
+  const form = document.getElementById('submit-to-google-sheet'); // Form trong modal
+
+  // Reset form mỗi khi bấm nút mở modal
+  openButton.addEventListener('click', () => {
+    form.reset(); // Đặt lại form
+    const fileNameSpan = document.getElementById('file-name'); // Xóa tên file hiển thị (nếu có)
+    if (fileNameSpan) {
+      fileNameSpan.textContent = '';
+    }
+  });
+});
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+
+  // Handle the file upload
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    const fileExtension = file.name.split('.').pop().toLowerCase();
+
+    // Only allow JPG and PDF files
+    if (!["jpg", "pdf"].includes(fileExtension)) {
+      alert("Only JPG and PDF files are allowed.");
+      return;
+    }
+
+    // Size validation, only allow files under 16MB
+    if (file.size > 1024 * 1024 * 16) {
+      alert("File size should be less than 16MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function () {
+      formData.append("media", reader.result.split(",")[1]); // Append base64 data
+      formData.append("fileExtension", fileExtension); // Append file extension
+      await submitForm(formData);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // If no file is uploaded
+    await submitForm(formData);
+  }
+});
+
+async function submitForm(formData) {
+  submitButton.disabled = true;
+  submitButton.innerText = "Loading...";
+
+  fetch(scriptURL, { method: "POST", body: formData })
+    .then((response) => {
+      // Successfully submitted, hide the form and show "Thank you" message
+      formContainer.style.display = "none";
+      thankYouMessage.style.display = "block";
+    })
+    .catch((error) => {
+      alert("Something went wrong. Please try again!");
+    })
+    .finally(() => {
+      // Reset the button text and re-enable it regardless of outcome
+      submitButton.disabled = false;
+      submitButton.innerText = "Submit";
+      submitButton.classList.remove("btn-success");
+      submitButton.classList.add("btn-primary");
+    });
+}
+
+    $(document).ready(function() {
+            const webAppUrl ='https://script.google.com/macros/s/AKfycby4E8OCz76fPXPknjoGsibJsNhN2M_ofezrgpecJkIxgu4tIBBhMZ3qET6MtWxZbx9t/exec';
+            fetch(webAppUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('tableBody');
+                    data.forEach(row => {
+                        const timestamp = new Date(row['timestamp']);
+                        const formattedDate = timestamp.getFullYear() + '-' 
+                            + String(timestamp.getMonth() + 1).padStart(2, '0') + '-' 
+                            + String(timestamp.getDate()).padStart(2, '0') + ' ' 
+                            + String(timestamp.getHours()).padStart(2, '0') + ':' 
+                            + String(timestamp.getMinutes()).padStart(2, '0') + ':' 
+                            + String(timestamp.getSeconds()).padStart(2, '0');
+
+                        let tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="width: 30%;">${formattedDate}</td> 
+                            <td style="width: 55%;">${row['name']}</td>
+                            <td style="width: 5%;"><a href='${row['media']}'>#</a></td>
+                            <td style="width: 10%;">${row['mark']}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+                    $('#dataTable').DataTable();
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+  </script>
+</body>
+</html>

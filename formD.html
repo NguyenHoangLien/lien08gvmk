@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui">
+
+
+<script type="text/javascript" async src="./jquery/tex-mml-chtml.js"></script>
+
+<!-- Bootstrap CSS -->
+<link href="./jquery/bootstrap.min.css" rel="stylesheet" />
+
+<!-- jQuery and Bootstrap JavaScript -->
+<script src="./jquery/jquery.slim.min.js"></script>
+<script src="./jquery/popper.min.js"></script>
+<script src="./jquery/bootstrap.min.js"></script>
+
+<!-- Markdown-it and Markdown-it-ex -->
+<script src="./jquery/markdown-it.min.js"></script>
+    <script src="./jquery/markdown-it-attrs.js"></script>
+
+
+    <script src="./jquery/markdown-it-ex.min.js"></script>
+   
+<link rel="stylesheet" href="./jquery/formTL.css">
+</head>
+<style>
+        .custom-file-upload {
+            display: inline;
+                       color: white;
+          
+        }
+
+        /* Hiển thị tên file đã chọn */
+        #custom {
+        display: none;
+    }
+
+        /* Ẩn input file */
+        #media {
+            display: none;
+        }
+  
+.form-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các form */
+}
+</style>    
+
+<body>
+
+<button id="fullscreenButton" style="position:absolute; right:2%;bottom:2%;z-index:5; display:none;">&#128260;</button>
+   <span id="dateDisplay"></span>
+
+    <div id="startContainer">
+        <button id="startQuizButton" style="display:none;  justify-content: center;align-items: center; top:50%; left:50%;position:absolute;font-size:200%; "> Quiz</button>
+    </div>
+
+    <div id="quizContainer" class="hidden">
+
+	
+<div class="form-container">
+    <span id="timer">00:00</span>
+<span class="section-buttons">
+                <button onclick="switchSection('one')">&#167; A &nbsp &nbsp</button>
+                <button onclick="switchSection('two')">&#167; B &nbsp &nbsp</button>
+                <button onclick="switchSection('three')">&#167; C &nbsp &nbsp</button>
+         <button onclick="switchSection('four')">&#167; D &nbsp &nbsp</button>
+            </span>
+
+<form id="BT">
+      <div style="display:flex;" > <input type="text" class="form-control" name="name" placeholder="TT#" id="username" pattern="^[0-4 G][0-9 V]#$" maxlength="3" size="3" line-height="1.5"  required />      <span class="form-group mt-2" id="custom" >       <label for="media" class="custom-file-upload"  >&#128190;</label>         <input class="form-control-file" type="file" name="media" id="media"  />   </span> </div>
+ <input type="text" class="form-control" name="message" id="score"   style="display:none;" required />   
+        <button type="submit" class="btn btn-primary btn-block" id="submit-button" style="display:none;">          Submit        </button>
+      </form><form id="questionForm">  </form> 
+
+</div>
+       <div id="questionContainer">
+
+  
+       <div id="questionText" style="padding:20px;"></div> 
+       
+    
+</div>
+       
+
+        
+        <div id="quickNavButtons"></div>
+    </div>
+	
+
+
+    <script>
+ const scriptURL = "https://script.google.com/macros/s/AKfycbxXbJ52tGMyJlXf8As5JekaqNsIdojgPAVbbMHORr2NO-kZH3NA8AQMMCLhNAeBJd3O/exec";
+    
+ // Ngày bắt đầu và kết thúc được thiết lập trực tiếp trong script
+        const startDate = new Date('2024-10-22T23:59:59'); // Ngày bắt đầu
+        const endDate = new Date('2024-12-30T23:59:59');   // Ngày kết thúc
+   let timeLeft = 60; // 5 phút = 300 giây
+
+
+const questions = {
+    one: [
+        { Q: `Một vật chuyển động theo quy luật  $s=-\\frac{1}{2}t^{3} + 6t^2$  với t (giây) là khoảng thời gian tính từ khi vật bắt đầu chuyển động và s (mét) là quãng đường vật di chuyển được trong khoảng thời gian đó.  Hỏi trong khoảng thời gian 6 giây , kể từ khi bắt đầu chuyển động , vận tốc lớn nhất của vật đạt được là bao nhiêu ?
+:::.S
+0. 24(m/s)
+0. 108(m/s) 
+0. 18(m/s) 
+0. 64(m/s)
+:::  `, A: 'A' },
+        { Q: `Cho hàm số   $y=ax^{3} + bx^{2} +cx +d$ có đồ thị 
+![Sample Image](./imgT/hinh1.jpg)
+chọn nhận xét đúng  
+:::.S
+0. $a>0 ;c<0;d<0.$
+0. $a>0;c>0;d<0.$
+0. $a<0;c>0;d<0$
+0. $a>0;c<0;d>0.$
+:::  `, A: 'A' },
+        { Q: `Cho hàm số y=f(x) có đạo hàm trên K. Mệnh đề nào sau đây **SAI**  
+:::.S
+0. Nếu $f'(x)< 0 \\quad \\forall x\\in K$ thì hàm số f(x) nghịch biến trên K
+0. Nếu $f'(x)> 0 \\quad \\forall x\\in K$ thì hàm số f(x) đồng  biến trên K 
+0. Nếu hàm số f(x) nghịch biến trên K thì  $f'(x)\\le 0\\quad \\forall x\\in K.$
+0. Nếu hàm số f(x) đồng  biến trên K thì  $f'(x)>0\\quad \\forall x\\in K.$
+:::`, A: 'D' },
+        { Q: `Cho hàm số   xác định trên $y=f(x)$ xác định trên $\\mathbb{R}\\backslash \\\\{-1\\\\}$  , liên tục trên mỗi khoảng xác 
+định và có bảng biến thiên như hình sau  
+![Sample Image](./imgT/hinh2.jpg)  
+Tìm tập hợp tất cả các giá trị của tham số thực m  sao cho phương trình $f(x)=m$  có đúng 3 nghiệm thực phân biệt   
+:::.S
+0. $(-4;2).$
+0. $[-4;2).$
+0. $(-4;2].$
+0. $(-\\infty;2].$
+::: `, A: 'A' }
+    ],
+     two: [
+        { Q: '4', A: ["a", "b", "c", "d"] },
+        { Q: '3', A: ["a", "b", "c"] },
+        { Q: '2', A: ["a", "b"] },
+        { Q: '1', A: ["a"] },
+        { Q: '0', A: [] }
+    
+
+    ],
+    three: [
+        { Q: `Giá trị nhỏ nhất của hàm số $y=\\frac{x+1}{x+4}$ trên đoạn [0;4] là`, A: '0.25' },
+        { Q: `Phương trình tiếp tuyến của hàm số $y=x^{3} +3x+2$ tại điểm có hoành độ $x=-1$ có hệ số tự do là`, A: '4' },
+        { Q: `Tiệm cận xiên của hàm số $y=\\frac{2x^{2} + x+1}{x-1}$ cắt trục hoành tại điểm có hoành độ là`, A: '-1.5' },
+        { Q: `tung độ tâm đối xứng của đồ thị hàm số $y=x^{3} -3x^{2}+2x+1$ là`, A: '1' }
+    ],
+   four: [
+        { Q: `  ***Khoảng tứ phân vị:***   
+Khoảng tứ phân vị của mẫu số liệu ghép nhóm là hiệu giữa tứ phân vị thứ ba và tứ phân vị thứ nhất của mẫu số liệu ghép nhóm đó 
+     $\\Delta_{Q}=Q_{3}-Q_{1}$`},
+        { Q: `***Khoảng tứ phân vị:***   
+Khoảng tứ phân vị của mẫu số liệu ghép nhóm là hiệu giữa tứ phân vị thứ ba và tứ phân vị thứ nhất của mẫu số liệu ghép nhóm đó 
+     $\\Delta_{Q}=Q_{3}-Q_{1}$` },
+        { Q: `***Khoảng tứ phân vị:***   
+Khoảng tứ phân vị của mẫu số liệu ghép nhóm là hiệu giữa tứ phân vị thứ ba và tứ phân vị thứ nhất của mẫu số liệu ghép nhóm đó 
+     $\\Delta_{Q}=Q_{3}-Q_{1}$` },
+        // Thêm các câu hỏi khác vào đây
+    ]
+};
+    
+</script>
+<script src="./jquery/TLo.js"></script>
+</body>
+</html>

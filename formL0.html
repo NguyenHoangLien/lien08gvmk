@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui">
+
+    <script type="text/javascript" async src="./jquery/tex-mml-chtml.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="./jquery/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- jQuery and Bootstrap JavaScript -->
+    <script src="./jquery/jquery.slim.min.js"></script>
+    <script src="./jquery/popper.min.js"></script>
+    <script src="./jquery/bootstrap.min.js"></script>
+
+    <!-- Markdown-it and Markdown-it-ex -->
+    <script src="./jquery/markdown-it.min.js"></script>
+    <script src="./jquery/markdown-it-attrs.js"></script>
+    <script src="./jquery/markdown-it-ex.min.js"></script>
+
+    <link rel="stylesheet" href="./jquery/formTL.css">
+</head>
+
+
+<body>
+
+<button id="fullscreenButton" style="position:absolute; right:2%;bottom:2%;z-index:5; display:none;">&#128260;</button>
+<span id="dateDisplay"></span>
+
+<div id="startContainer">    <button id="startQuizButton" style="display:none; justify-content: center;align-items: center; top:50%; left:50%;position:absolute;font-size:200%;">Quiz</button></div>
+<div id="quizContainer" class="hidden">
+    <div class="form-container">        <span id="timer">00:00</span>
+        <span class="section-buttons">
+            <button onclick="switchSection('one')">&#167; A &nbsp &nbsp</button>
+            <button onclick="switchSection('two')">&#167; B &nbsp &nbsp</button>
+            <button onclick="switchSection('three')">&#167; C &nbsp &nbsp</button>
+            <button onclick="switchSection('four')">&#167; D &nbsp &nbsp</button>
+        </span>
+        <form id="BT">
+            <div style="display:flex;">
+                <input type="text" class="form-control" name="name" placeholder="TT#" id="username" pattern="^[0-4 G][0-9 V]#$" maxlength="3" size="3" line-height="1.5" required />
+                <span class="form-group mt-2" id="custom">
+                    <label for="media" class="custom-file-upload">&#128190;</label>
+                    <input class="form-control-file" type="file" name="media" id="media" />
+                </span>
+            </div>
+       <input type="text" class="form-control" name="message" id="score" style="display:none;" required />
+            <button type="submit" class="btn btn-primary btn-block" id="submit-button" style="display:none;">Submit</button>
+        </form>
+        <form id="questionForm"></form>    </div>
+    <div id="questionContainer">        <div id="questionText" style="padding:20px;"></div>    </div>
+    <div id="quickNavButtons"></div>
+</div>
+
+<script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyCGCGMlVgn9St8o_pjvrcuaWakCOFWYbmnDVUyncnb2dEk-zY9QCrM1u5SbdZAOrm7/exec";
+
+    // Ngày bắt đầu và kết thúc được thiết lập trực tiếp trong script
+    const startDate = new Date('2024-10-22T23:59:59'); // Ngày bắt đầu
+    const endDate = new Date('2024-12-30T23:59:59');   // Ngày kết thúc
+    let timeLeft = 60; // 5 phút = 300 giây
+
+    // Declare `questions` globally
+    let questions = null;
+
+    // Fetch questions data
+    fetch('questions.json') // Đường dẫn tới file JSON
+        .then(response => response.json()) // Chuyển dữ liệu từ JSON sang object
+        .then(data => {
+            questions = data; // Assign data to the global variable
+            console.log('Questions loaded:', questions);
+        })
+        .catch(error => {
+            console.error('Lỗi khi đọc file JSON:', error);
+        });
+</script>
+<script src="./jquery/TLo.js"></script>
+</body>
+</html>
