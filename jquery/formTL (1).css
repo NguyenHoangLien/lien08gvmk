@@ -1,0 +1,335 @@
+
+
+  #quickNavButtons {
+    display: flex;
+    gap: 20px;/* Khoảng cách giữa các nút */
+  }
+
+       
+ .custom-file-upload {
+            display: inline;
+                       color: white;
+          
+        }
+
+        /* Hiển thị tên file đã chọn */
+        #custom {
+        display: none;
+    }
+
+        /* Ẩn input file */
+        #media {
+            display: none;
+        }
+  
+.form-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các form */
+} 
+ ol {
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            position: relative;
+        }
+   li {
+            counter-increment: custom-counter;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+           
+            position: absolute;
+        }
+        /* Chèn thứ tự trước mỗi mục li */
+        .M li::before {
+            content: counter(custom-counter, lower-alpha) ") ";
+            font-weight: bold;
+        }
+.S li::before {
+            content: counter(custom-counter, upper-alpha) ") ";
+            font-weight: bold;
+        }
+.M li::before {
+    content: counter(custom-counter, lower-alpha) ") ";
+    font-weight: bold;
+}
+
+
+
+      
+
+   
+     
+        body, html {
+            margin: 10;
+            padding: 10;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            display: flex;
+            font-size: 100%
+        }
+ input {
+      
+    
+      font-size: 150%; /* Kích thước chữ */
+    }
+label,
+.error {
+  display: inline-block; /* Đảm bảo các thành phần nằm trên cùng một hàng */
+ font-size: 150%;
+}
+
+
+.error {
+  color: red; /* Tùy chỉnh màu lỗi */
+}
+ 
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: 15px;
+    }
+
+    .checkbox-container {
+      position: relative;
+      width: 40px;
+      height: 40px;
+    }
+
+    /* Hidden default checkbox */
+    .checkbox-container input[type="checkbox"] {
+      opacity: 0;
+      position: absolute;
+      cursor: pointer;
+    }
+
+    /* Custom checkbox */
+    .checkbox-box {
+      width: 100%;
+      height: 100%;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+      transition: 0.3s ease;
+      background-color: #fff;
+    }
+
+    /* Change background and color when checked */
+    .checkbox-container input[type="checkbox"]:checked ~ .checkbox-box {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+
+    
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+    }
+
+    .radio-container {
+      position: relative;
+      width: 40px;
+      height: 40px;
+    }
+
+    /* Hidden default radio button */
+    .radio-container input[type="radio"] {
+      opacity: 0;
+      position: absolute;
+      cursor: pointer;
+    }
+
+    /* Custom radio button */
+    .radio-box {
+      width: 100%;
+      height: 100%;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+      border-radius: 50%; /* Make it circular */
+      transition: 0.3s ease;
+      background-color: #fff;
+    }
+
+    /* Change background and color when checked */
+    .radio-container input[type="radio"]:checked ~ .radio-box {
+      background-color: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+ 
+
+        /* Tăng kích thước checkbox */
+        input[type="radio"] {
+            transform: scale(1.5); /* Phóng to checkbox */
+        }
+        .error {
+            color: red;
+            display: none;
+        }
+        .hidden {
+            display: none;
+        }
+        .saved {
+            background-color:lightblue;
+            color: white;
+        }
+        #timer {
+            font-size: 1.5rem;
+            color: red;
+            margin-bottom: 10px;
+        }
+input[type="checkbox"] {
+    /* Ẩn giao diện mặc định của checkbox */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked::before {
+    content: "x";
+    font-size: 18px;
+    color: black;
+    position: absolute;
+    top: -3px;
+    left: 3px;
+}
+#quickNavButtons {
+    display: flex;
+    flex-wrap: wrap;
+    position: fixed;  /* Cố định vị trí để luôn nằm ở bên phải hoặc dưới cùng */
+    margin: 10px;
+}
+#quickNavButtons button {
+    width: 50px;  /* Điều chỉnh kích thước button */
+    height: 40px;
+    margin: 5px;
+     border-radius: 25%;
+
+}
+/* Khi màn hình ngang (landscape) */
+@media (orientation: landscape) {
+ #quickNavButtons {
+        
+    display: grid;                      /* Kích hoạt CSS Grid */
+    grid-template-rows: repeat(8, 1fr); /* Tạo 8 hàng với chiều cao đều nhau */
+    grid-auto-flow: column;             /* Tự động sắp xếp theo cột */
+    right: 0;                           /* Đặt ở mép phải */
+    top: 0;                             /* Đặt ở trên cùng */
+    height: 100%;                       /* Bao phủ toàn bộ chiều cao màn hình */
+    width: 7%;                       /* Tổng chiều rộng cho 2 cột */
+    position: fixed;                    /* Giữ cố định khi cuộn */
+    gap: 10px;                          /* Khoảng cách giữa các phần tử */
+}
+    
+#questionText{
+            width: 80%; /* Chiều rộng 40% cho mỗi div */
+   height:100vh;
+   
+      flex-wrap: wrap;
+            position: absolute;
+           font-size:150%;
+ 
+            margin: 0 auto;
+        }
+.form-container {
+    display: flex;
+flex-direction: row;
+}
+}
+
+/* Khi màn hình dọc (portrait) */
+@media (orientation: portrait) {
+ #quickNavButtons { display: grid; 
+        grid-auto-flow: row;          
+        bottom: 0;  /* Đặt div ở dưới cùng */
+        left: 0;    /* Đặt div sát bên trái */
+        width: 100%;  /* Chiều rộng bằng 100% để phủ kín dưới cùng của màn hình */
+        height:7%;
+         grid-template-columns: repeat(8, 1fr);
+           position: fixed;                    /* Giữ cố định khi cuộn */
+    gap: 10px;     
+    }
+#questionText{
+            height: 80%; /* Chiều rộng 40% cho mỗi div */
+      width:100%;
+    flex-wrap: wrap;
+  
+            position: absolute;
+           font-size:150%;
+ 
+            margin: 0 auto;
+        }
+
+
+
+.form-container {
+    display: flex;
+flex-direction: column;}
+}}
+      .content {
+            line-height: 1.6;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        /* Định dạng cho tất cả hình ảnh trong content */
+        .content img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px; /* Khoảng cách mặc định xung quanh hình ảnh */
+        }
+
+        /* Bố cục mặc định cho chế độ ngang */
+        @media (orientation: landscape) {
+            .T {
+                display: flex; /* Hiển thị nội dung theo hàng */
+                align-items: flex-start; /* Căn trên cùng */
+                gap: 10px; /* Khoảng cách giữa chữ và hình ảnh */
+            }
+
+            .T img {
+                float: left; /* Quấn chữ xung quanh hình */
+                margin: 0 10px 10px 0; /* Khoảng cách giữa hình và văn bản */
+                max-width: 50%; /* Giới hạn chiều rộng của hình ảnh */
+            }
+        }
+
+        /* Bố cục cho chế độ dọc */
+        @media (orientation: portrait) {
+            .T {
+                display: block; /* Hiển thị nội dung theo cột */
+            }
+
+            .T img {
+                display: block; /* Hình ảnh nằm một dòng riêng */
+                margin: 20px auto 0; /* Căn giữa hình ảnh */
+                max-width: 80%; /* Điều chỉnh kích thước phù hợp với chiều dọc */
+            }
+        }
+  
