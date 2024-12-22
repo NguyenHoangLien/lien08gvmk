@@ -1,0 +1,23 @@
+{
+    "one": [
+        {
+            "Q": "Một vật chuyển động theo quy luật  $s=-\\frac{1}{2}t^{3} + 6t^2$ ...",
+            "A": "A"
+        },
+        {
+            "Q": "Một vật chuyển động theo quy luật\n$s=-\\frac{1}{2}t^{3} + 6t^2$: <br>...\n<b>Kết quả</b>",
+            "A": "A"
+        }
+    ],
+    "two": [
+        { "Q": "4", "A": ["a", "b", "c", "d"] },
+        { "Q": "3", "A": ["a", "b", "c"] }
+    ],
+    "three": [
+        { "Q": "Giá trị nhỏ nhất của hàm số $y=\\frac{x+1}{x+4}$...", "A": "0.25" },
+        { "Q": "Phương trình tiếp tuyến của hàm số $y=x^{3} +3x+2$...", "A": "4" }
+    ],
+    "four": [
+        { "Q": "Khoảng tứ phân vị của mẫu số liệu ghép nhóm là hiệu giữa tứ phân vị thứ ba   \"  \\ < > & và thứ nhất..." }
+    ]
+}
